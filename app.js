@@ -1,0 +1,162 @@
+// Trenton-Website · interactivity
+// custom cursor · scroll reveals · magnetic buttons · word rotator
+// hero blob parallax · konami easter egg
+
+(() => {
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const finePointer = window.matchMedia("(pointer: fine)").matches;
+
+  // ── console wink ──────────────────────────────────────────
+  console.log(
+    "%cHey 👋",
+    "font: 700 22px ui-serif, Georgia; color: #003262;"
+  );
+  console.log(
+    "%cIf you're reading this you've probably either built a site too or you're poking around. Either way — say hi: toba4366@berkeley.edu",
+    "font: 14px ui-sans-serif, system-ui; color: #15131c;"
+  );
+
+  // ── custom cursor ────────────────────────────────────────
+  if (finePointer && !reduced) {
+    const dot = document.querySelector(".cursor-dot");
+    const ring = document.querySelector(".cursor-ring");
+    let mx = 0, my = 0;
+    let rx = 0, ry = 0;
+
+    window.addEventListener("mousemove", (e) => {
+      mx = e.clientX; my = e.clientY;
+      dot.style.transform = `translate(${mx}px, ${my}px) translate(-50%, -50%)`;
+    });
+
+    const tick = () => {
+      // ring lags slightly for a soft trail
+      rx += (mx - rx) * 0.18;
+      ry += (my - ry) * 0.18;
+      ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%, -50%)`;
+      requestAnimationFrame(tick);
+    };
+    tick();
+
+    const hoverables = "a, button, .magnetic, .card, .poster, .scroll-nudge, .timeline li";
+    document.querySelectorAll(hoverables).forEach((el) => {
+      el.addEventListener("mouseenter", () => ring.classList.add("is-hover"));
+      el.addEventListener("mouseleave", () => ring.classList.remove("is-hover"));
+    });
+
+    // hide when cursor leaves window
+    document.addEventListener("mouseleave", () => {
+      dot.style.opacity = "0"; ring.style.opacity = "0";
+    });
+    document.addEventListener("mouseenter", () => {
+      dot.style.opacity = ""; ring.style.opacity = "";
+    });
+  }
+
+  // ── scroll reveals ───────────────────────────────────────
+  if ("IntersectionObserver" in window && !reduced) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-in");
+            io.unobserve(entry.target);
+          }
+        });
+      },
+      { rootMargin: "0px 0px -8% 0px", threshold: 0.08 }
+    );
+    document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+  } else {
+    document.querySelectorAll(".reveal").forEach((el) => el.classList.add("is-in"));
+  }
+
+  // ── word rotator ─────────────────────────────────────────
+  const words = Array.from(document.querySelectorAll(".rotator-word"));
+  if (words.length > 1 && !reduced) {
+    let i = 0;
+    setInterval(() => {
+      const current = words[i];
+      const next = words[(i + 1) % words.length];
+      current.classList.remove("is-active");
+      current.classList.add("is-leaving");
+      setTimeout(() => current.classList.remove("is-leaving"), 500);
+      next.classList.add("is-active");
+      i = (i + 1) % words.length;
+    }, 2200);
+  }
+
+  // ── magnetic buttons ─────────────────────────────────────
+  if (finePointer && !reduced) {
+    const strength = 18;
+    document.querySelectorAll(".magnetic").forEach((el) => {
+      el.addEventListener("mousemove", (e) => {
+        const rect = el.getBoundingClientRect();
+        const dx = e.clientX - (rect.left + rect.width / 2);
+        const dy = e.clientY - (rect.top + rect.height / 2);
+        el.style.transform = `translate(${(dx / rect.width) * strength}px, ${(dy / rect.height) * strength}px)`;
+      });
+      el.addEventListener("mouseleave", () => {
+        el.style.transform = "";
+      });
+    });
+  }
+
+  // ── hero parallax (mouse + scroll) ───────────────────────
+  if (!reduced) {
+    const blobs = document.querySelectorAll(".blob");
+    const hero = document.querySelector(".hero");
+    if (hero && blobs.length) {
+      hero.addEventListener("mousemove", (e) => {
+        const x = (e.clientX / window.innerWidth) - 0.5;
+        const y = (e.clientY / window.innerHeight) - 0.5;
+        blobs.forEach((b, idx) => {
+          const depth = (idx + 1) * 18;
+          b.style.transform = `translate(${x * depth}px, ${y * depth}px)`;
+        });
+      });
+    }
+  }
+
+  // ── KONAMI: ↑↑↓↓←→←→ B A → confetti rain ────────────────
+  const KONAMI = [
+    "ArrowUp","ArrowUp","ArrowDown","ArrowDown",
+    "ArrowLeft","ArrowRight","ArrowLeft","ArrowRight",
+    "b","a"
+  ];
+  let buf = [];
+  const colors = ["#fdb515", "#003262", "#f25c54", "#6c4ab6", "#15131c"];
+
+  window.addEventListener("keydown", (e) => {
+    buf.push(e.key.length === 1 ? e.key.toLowerCase() : e.key);
+    if (buf.length > KONAMI.length) buf.shift();
+    if (buf.length === KONAMI.length && buf.every((k, i) => k === KONAMI[i])) {
+      buf = [];
+      partyTime();
+    }
+  });
+
+  function partyTime() {
+    console.log("%cGO BEARS 🐻💛", "font: 700 18px ui-serif; color: #fdb515; background: #003262; padding: 4px 10px; border-radius: 4px;");
+    const N = 140;
+    for (let i = 0; i < N; i++) {
+      const piece = document.createElement("div");
+      piece.className = "confetti";
+      piece.style.left = Math.random() * 100 + "vw";
+      piece.style.background = colors[(Math.random() * colors.length) | 0];
+      piece.style.transform = `rotate(${Math.random() * 360}deg)`;
+      document.body.appendChild(piece);
+
+      const dx = (Math.random() - 0.5) * 600;
+      const dur = 2200 + Math.random() * 1800;
+      const delay = Math.random() * 400;
+
+      piece.animate(
+        [
+          { transform: `translate(0,0) rotate(0deg)`, opacity: 1 },
+          { transform: `translate(${dx}px, ${window.innerHeight + 80}px) rotate(${Math.random() * 1080}deg)`, opacity: 0.9 }
+        ],
+        { duration: dur, delay, easing: "cubic-bezier(.2,.7,.3,1)", fill: "forwards" }
+      ).onfinish = () => piece.remove();
+    }
+  }
+})();

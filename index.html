@@ -3,52 +3,446 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Trenton O'Bannon — Cal '25 CS & Data Science. Researcher, backend engineer, deep learning enthusiast." />
+  <meta name="theme-color" content="#fbf6e9" />
   <title>Trenton O'Bannon</title>
-  <style>
-    :root {
-      --bg: #0e1116;
-      --fg: #e6edf3;
-      --muted: #8b949e;
-      --accent: #58a6ff;
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-      background: var(--bg);
-      color: var(--fg);
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem;
-    }
-    main {
-      max-width: 640px;
-      text-align: center;
-    }
-    h1 {
-      font-size: clamp(2rem, 6vw, 3.5rem);
-      margin: 0 0 0.5rem;
-      letter-spacing: -0.02em;
-    }
-    p {
-      color: var(--muted);
-      font-size: 1.1rem;
-      line-height: 1.6;
-      margin: 0 0 2rem;
-    }
-    a {
-      color: var(--accent);
-      text-decoration: none;
-    }
-    a:hover { text-decoration: underline; }
-  </style>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <main>
-    <h1>Trenton O'Bannon</h1>
-    <p>Welcome. This site is under construction — more soon.</p>
+  <div class="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" aria-hidden="true"></div>
+
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="nav">
+    <a href="#top" class="nav-mark">TO<span class="dot">.</span></a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#research">Research</a>
+      <a href="#experience">Life</a>
+      <a href="#contact">Hi</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-bg" aria-hidden="true">
+        <span class="blob blob-a"></span>
+        <span class="blob blob-b"></span>
+        <span class="blob blob-c"></span>
+      </div>
+
+      <div class="hero-inner">
+        <p class="eyebrow reveal">Berkeley, CA · est. Liberty, MO</p>
+        <h1 class="name reveal">
+          <span>Trenton</span>
+          <span class="serif-italic">Eugene</span>
+          <span>O'Bannon</span>
+        </h1>
+
+        <p class="hero-tag reveal">
+          I'm a
+          <span class="rotator" aria-live="polite">
+            <span class="rotator-word is-active">researcher</span>
+            <span class="rotator-word">backend engineer</span>
+            <span class="rotator-word">deep-learning nerd</span>
+            <span class="rotator-word">recovering line cook</span>
+            <span class="rotator-word">brother of A&Phi;A</span>
+            <span class="rotator-word">Cal Bear</span>
+          </span>
+          who likes hard problems in new places.
+        </p>
+
+        <div class="hero-meta reveal">
+          <span><strong>Cal '25</strong> · CS &amp; Data Science · 4.0</span>
+          <span class="dot-sep">●</span>
+          <span>Deep learning · Big data · Causal inference</span>
+        </div>
+
+        <div class="hero-cta reveal">
+          <a class="btn btn-primary magnetic" href="#projects">See the work</a>
+          <a class="btn btn-ghost magnetic" href="docs/Trenton%20Eugene%20O%27Bannon_CV.pdf" target="_blank" rel="noopener">Download CV ↗</a>
+        </div>
+
+        <a href="#about" class="scroll-nudge" aria-label="Scroll to about">
+          <span></span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="about section">
+      <div class="section-head reveal">
+        <span class="section-num">01</span>
+        <h2>The short version.</h2>
+      </div>
+
+      <div class="about-grid">
+        <div class="about-prose reveal">
+          <p>
+            I just wrapped a B.A. at <mark>UC Berkeley</mark> in
+            Computer Science <em>and</em> Data Science (with an econ
+            emphasis, because incentives are a kind of physics).
+            These days I'm doing research full-time and moonlighting
+            as a <mark>senior backend engineer</mark> — chasing the
+            same question from two angles: what can deep learning
+            <em>actually</em> do when you point it at a new domain?
+          </p>
+          <p>
+            Before Cal I grew up in Liberty, Missouri — a 9-year
+            stretch as a floor tech for the family carpet-cleaning
+            business, ProStart culinary competitions, and a small
+            obsession with making things that work. The making-things
+            part stuck.
+          </p>
+          <p>
+            Off-the-clock: heavy in the kitchen, captain in the
+            <abbr title="Ron Brown Leaders Network">RBLN</abbr>,
+            two years as a Berkeley RA, and a brother of
+            Alpha Phi Alpha.
+          </p>
+        </div>
+
+        <aside class="now-card reveal">
+          <h3>Currently</h3>
+          <ul>
+            <li><span class="now-label">Researching</span><span>Approximate symmetry via the Euler Characteristic Transform</span></li>
+            <li><span class="now-label">Building</span><span>Backend systems on the side, mostly Python + FastAPI</span></li>
+            <li><span class="now-label">Reading</span><span>Anything on state-space models (S4, Mamba, hybrids)</span></li>
+            <li><span class="now-label">Eyeing</span><span>PhD applications — DL × applied math × econ</span></li>
+            <li><span class="now-label">Cooking</span><span>Whatever the fridge dares me to</span></li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="projects section">
+      <div class="section-head reveal">
+        <span class="section-num">02</span>
+        <h2>Projects I'm proud of.</h2>
+        <p class="section-sub">A mix of research, coursework, and side builds.</p>
+      </div>
+
+      <div class="card-grid">
+        <article class="card tilt reveal" style="--tilt: -2.5deg;">
+          <div class="card-tag">Deep Learning · PyTorch</div>
+          <h3>In-Context Learning of Finite State Machines</h3>
+          <p>
+            Pitted Transformers, LSTMs, GRUs, and vanilla RNNs against
+            DFA learning tasks. Wrote the trainers, ablations, and a
+            10K-sample eval framework from scratch.
+          </p>
+          <ul class="card-stats">
+            <li><strong>99.85%</strong> LSTM accuracy</li>
+            <li><strong>+46.2pp</strong> over RNNs</li>
+          </ul>
+          <div class="card-foot">CS 182 · Dec 2025</div>
+        </article>
+
+        <article class="card tilt reveal" style="--tilt: 1.5deg;">
+          <div class="card-tag">Research · Topology · Python</div>
+          <h3>Quantifying Approximate Symmetry with the ECT</h3>
+          <p>
+            A novel framework for detecting bilateral & rotational
+            symmetry in 2D shapes via the Euler Characteristic
+            Transform. Synthetic shape datasets, L1 distance curves,
+            Fourier decomposition.
+          </p>
+          <ul class="card-stats">
+            <li><strong>1st place</strong> AGEP poster</li>
+            <li><strong>MSU CMSE</strong> · Summer '25</li>
+          </ul>
+          <div class="card-foot">SROP · Michigan State</div>
+        </article>
+
+        <article class="card tilt reveal" style="--tilt: -1deg;">
+          <div class="card-tag">Computer Vision · U-Net · NIH</div>
+          <h3>Retinal Vessel Segmentation (SWAN)</h3>
+          <p>
+            Built an automated U-Net pipeline for retinal vessel
+            segmentation, hand-annotated training masks for an
+            unlabeled dataset, and drafted a first-author manuscript
+            for an NIH-funded study.
+          </p>
+          <ul class="card-stats">
+            <li><strong>1st-author</strong> manuscript draft</li>
+            <li><strong>Ohio State</strong> · '23–'24</li>
+          </ul>
+          <div class="card-foot">SROP · OSU Graduate School</div>
+        </article>
+
+        <article class="card tilt reveal" style="--tilt: 2deg;">
+          <div class="card-tag">Causal Inference · R · Stata</div>
+          <h3>Opportunity Zones in Michigan</h3>
+          <p>
+            Tract-level longitudinal panel of Michigan communities
+            (ACS '12–'22). DiD + fixed-effects models on the 2017
+            TCJA Opportunity Zones. Presented twice; published a
+            second-place poster.
+          </p>
+          <ul class="card-stats">
+            <li><strong>2nd place</strong> AGEP poster</li>
+            <li><strong>MEA Conf.</strong> oral talk</li>
+          </ul>
+          <div class="card-foot">SROP · MSU Economics · '22 + '24</div>
+        </article>
+
+        <article class="card tilt reveal" style="--tilt: -1.5deg;">
+          <div class="card-tag">Full-Stack · Ruby on Rails</div>
+          <h3>ActionMap — Civic Engagement App</h3>
+          <p>
+            Civic platform to track representatives and political
+            news. Implemented the Issue Classification feature
+            (17 categories), backed by 60+ RSpec tests at 100% pass.
+          </p>
+          <ul class="card-stats">
+            <li><strong>60+ tests</strong> · 100% pass</li>
+            <li><strong>17 topics</strong> classified</li>
+          </ul>
+          <div class="card-foot">CS 169A · Dec 2025</div>
+        </article>
+
+        <article class="card tilt reveal" style="--tilt: 1deg;">
+          <div class="card-tag">Full-Stack · React + FastAPI</div>
+          <h3>Dish It Out! — Cooking Assistant</h3>
+          <p>
+            Generates interactive, parallelized cooking timelines.
+            Web scraping, recipe parsing, history tracking — so you
+            can actually run three pots without losing your mind.
+          </p>
+          <ul class="card-stats">
+            <li><strong>Parallel</strong> step planner</li>
+            <li><strong>React</strong> + <strong>FastAPI</strong></li>
+          </ul>
+          <div class="card-foot">CS 160 · Dec 2025</div>
+        </article>
+
+        <article class="card tilt reveal" style="--tilt: -2deg;">
+          <div class="card-tag">ML · Python</div>
+          <h3>Diabetes Prediction Model</h3>
+          <p>
+            Logistic regression, random forest, gradient boosting,
+            clustering — full sweep on clinical + lifestyle features
+            for diabetes risk.
+          </p>
+          <ul class="card-stats">
+            <li><strong>98.94%</strong> accuracy</li>
+            <li><strong>0.9993</strong> ROC-AUC</li>
+          </ul>
+          <div class="card-foot">IEOR 142 · Dec 2024</div>
+        </article>
+
+        <article class="card tilt reveal" style="--tilt: 2.5deg;">
+          <div class="card-tag">For Fun · Java</div>
+          <h3>World Generation, 2048, Ants</h3>
+          <p>
+            A 2D randomized world engine, a 2048 clone, and a
+            Plants-vs-Zombies remake (in Python, 61A days).
+            The classics — small, scrappy, mine.
+          </p>
+          <ul class="card-stats">
+            <li><strong>61A · 61B</strong></li>
+            <li><strong>'21 · '22</strong></li>
+          </ul>
+          <div class="card-foot">Coursework · early Cal</div>
+        </article>
+      </div>
+    </section>
+
+    <!-- POSTERS / PAST LIFE -->
+    <section id="posters" class="posters section">
+      <div class="section-head reveal">
+        <span class="section-num">03</span>
+        <h2>Posters, badges, prints from the past.</h2>
+        <p class="section-sub">Things I've stuck on a wall. <em>(Drop your scans into <code>docs/posters/</code> and I'll wire them up.)</em></p>
+      </div>
+
+      <div class="poster-wall">
+        <div class="poster reveal" style="--rot: -4deg;">
+          <span class="poster-pin"></span>
+          <div class="poster-empty">
+            <strong>ECT Symmetry</strong>
+            <span>AGEP '25 · 1st place</span>
+          </div>
+        </div>
+        <div class="poster reveal" style="--rot: 3deg;">
+          <span class="poster-pin"></span>
+          <div class="poster-empty">
+            <strong>Opportunity Zones</strong>
+            <span>AGEP '24 · 2nd place</span>
+          </div>
+        </div>
+        <div class="poster reveal" style="--rot: -2deg;">
+          <span class="poster-pin"></span>
+          <div class="poster-empty">
+            <strong>Retinal Vessel U-Net</strong>
+            <span>Consortium '23</span>
+          </div>
+        </div>
+        <div class="poster reveal" style="--rot: 5deg;">
+          <span class="poster-pin"></span>
+          <div class="poster-empty">
+            <strong>MEA Conference</strong>
+            <span>KC · Mar '24</span>
+          </div>
+        </div>
+        <div class="poster reveal" style="--rot: -3deg;">
+          <span class="poster-pin"></span>
+          <div class="poster-empty">
+            <strong>ProStart Nationals</strong>
+            <span>3rd · 2020</span>
+          </div>
+        </div>
+        <div class="poster reveal" style="--rot: 2deg;">
+          <span class="poster-pin"></span>
+          <div class="poster-empty">
+            <strong>A&Phi;A — AE</strong>
+            <span>Treasurer · Sgt-at-Arms</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESEARCH -->
+    <section id="research" class="research section">
+      <div class="section-head reveal">
+        <span class="section-num">04</span>
+        <h2>Three summers of research.</h2>
+        <p class="section-sub">Through MSU's Summer Research Opportunities Program.</p>
+      </div>
+
+      <div class="research-list">
+        <article class="research-item reveal">
+          <header>
+            <h3>Approximate Symmetry via the Euler Characteristic Transform</h3>
+            <span class="when">May–Jul 2025 · MSU CMSE</span>
+          </header>
+          <p>
+            Built a topology-flavored framework for detecting bilateral
+            and rotational symmetry in 2D binary shapes. ECTs, L1
+            distance curves, Fourier spectral analysis, polar plots
+            and heatmaps — Python pipelines end-to-end. <strong>First
+            place</strong> at the AGEP Student Success Conference.
+          </p>
+        </article>
+
+        <article class="research-item reveal">
+          <header>
+            <h3>Impact of Opportunity Zones in Michigan</h3>
+            <span class="when">May–Jul 2022 + 2024 · MSU Economics</span>
+          </header>
+          <p>
+            Tract-level longitudinal dataset of Michigan communities
+            (ACS '12–'22). Independently implemented DiD and
+            fixed-effects in R and Stata to estimate effects of the
+            2017 TCJA Opportunity Zone designation. Returned in '24
+            with updated data, demographic controls, and lagged-effect
+            tests. <strong>Second place</strong> AGEP poster + MEA
+            Conference oral.
+          </p>
+        </article>
+
+        <article class="research-item reveal">
+          <header>
+            <h3>Automated Retinal Vessel Segmentation (SWAN)</h3>
+            <span class="when">May 2023–Feb 2024 · OSU Graduate School</span>
+          </header>
+          <p>
+            Built a U-Net pipeline (Python + MATLAB) with custom data
+            augmentation for an NIH-funded ophthalmic diagnostics
+            study. Hand-annotated training masks for an unlabeled
+            dataset; drafted a first-author manuscript pending
+            revision.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- LIFE / EXPERIENCE -->
+    <section id="experience" class="experience section">
+      <div class="section-head reveal">
+        <span class="section-num">05</span>
+        <h2>The rest of the timeline.</h2>
+      </div>
+
+      <ol class="timeline">
+        <li class="reveal">
+          <span class="t-when">2023 — 2025</span>
+          <span class="t-what"><strong>Berkeley Residential Life</strong> · Gold RA, then Blue RA — mentored RAs, ran 10+ programs, 70+ wellness checks.</span>
+        </li>
+        <li class="reveal">
+          <span class="t-when">2023 — 2025</span>
+          <span class="t-what"><strong>MLT Career Prep Fellow</strong> · 18-month fellowship, case studies, Deloitte/LinkedIn/Target workshops.</span>
+        </li>
+        <li class="reveal">
+          <span class="t-when">2022 — present</span>
+          <span class="t-what"><strong>Alpha Phi Alpha · Alpha Epsilon</strong> · Treasurer & Sergeant-at-Arms.</span>
+        </li>
+        <li class="reveal">
+          <span class="t-when">2021 — 2025</span>
+          <span class="t-what"><strong>Fannie Lou Hamer Black Resource Center</strong> · Program staff for four years.</span>
+        </li>
+        <li class="reveal">
+          <span class="t-when">2021 — present</span>
+          <span class="t-what"><strong>Ron Brown Leaders Network</strong> · Captain.</span>
+        </li>
+        <li class="reveal">
+          <span class="t-when">2021 — 2024</span>
+          <span class="t-what"><strong>Target — Produce</strong> · Pre-dawn freight, recovery, real customers.</span>
+        </li>
+        <li class="reveal">
+          <span class="t-when">2020 — 2020</span>
+          <span class="t-what"><strong>Velociti Inc.</strong> · Corporate Tech Intern. First taste of agile.</span>
+        </li>
+        <li class="reveal">
+          <span class="t-when">2012 — 2021</span>
+          <span class="t-what"><strong>Darrell's Carpet & Upholstery</strong> · Floor tech for nine years. Where the work ethic comes from.</span>
+        </li>
+      </ol>
+
+      <div class="award-strip reveal" aria-label="Recent awards">
+        <span>🥇 1st — AGEP Poster, '25</span>
+        <span>🥈 2nd — AGEP Poster, '24</span>
+        <span>🥉 3rd — National ProStart, '20</span>
+        <span>🎓 4.0 — UC Berkeley, '25</span>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="contact section">
+      <div class="section-head reveal">
+        <span class="section-num">06</span>
+        <h2>Say hi.</h2>
+      </div>
+
+      <div class="contact-card reveal">
+        <p class="contact-line">
+          Best way to reach me is email — I read everything, even
+          the cold ones.
+        </p>
+        <a class="contact-email magnetic" href="mailto:toba4366@berkeley.edu">toba4366@berkeley.edu</a>
+        <ul class="contact-links">
+          <li><a href="https://www.linkedin.com/in/trenton-eugene-obannon/" target="_blank" rel="noopener">LinkedIn ↗</a></li>
+          <li><a href="https://github.com/Toba4366" target="_blank" rel="noopener">GitHub ↗</a></li>
+          <li><a href="docs/Trenton%20Eugene%20O%27Bannon_CV.pdf" target="_blank" rel="noopener">CV (PDF) ↗</a></li>
+        </ul>
+      </div>
+    </section>
+
+    <footer class="foot">
+      <span>Built by hand · No frameworks were harmed.</span>
+      <span class="foot-egg">↑↑↓↓←→←→ <kbd>B</kbd> <kbd>A</kbd></span>
+    </footer>
   </main>
+
+  <script src="app.js" defer></script>
 </body>
 </html>
