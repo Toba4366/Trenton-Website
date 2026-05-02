@@ -1138,6 +1138,22 @@ body.game-open { overflow: hidden; }
   border-color: var(--coral);
 }
 
+#wg-seed-input {
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  padding: 0.4rem 0.85rem;
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+  background: var(--bg);
+  color: var(--ink);
+  width: 14ch;
+  outline-offset: 2px;
+}
+#wg-seed-input:focus {
+  outline: 2px solid var(--coral);
+}
+#wg-seed-input::placeholder { color: var(--muted); }
+
 /* Chaser chip shapes — for HUD + algorithm buttons */
 .wg-chaser-chip {
   display: inline-block;

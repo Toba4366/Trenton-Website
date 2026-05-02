@@ -148,14 +148,28 @@
 
   function dfsStep(chaser, target) {
     if (chaser.col === target.col && chaser.row === target.row) return null;
+
+    // DFS chasers COMMIT to the path they find. Recomputing every step from
+    // scratch lets DFS pick a different "deep" branch each turn, which made
+    // the chaser flip-flop between two tiles. Now: follow the queued path
+    // until consumed, then replan from current position.
+    const stillValid = chaser._dfsPath && chaser._dfsPath.length > 0;
+    if (stillValid) {
+      const next = chaser._dfsPath.shift();
+      return next;
+    }
+
+    // Plan a fresh DFS path from chaser → target.
     const parent = new Map();
     parent.set(keyOf(chaser), null);
     const stack = [chaser];
     const visited = new Set([keyOf(chaser)]);
+    let foundEnd = null;
     while (stack.length) {
       const cur = stack.pop();
       if (cur.col === target.col && cur.row === target.row) {
-        return reconstructFirstStep(cur, parent, chaser);
+        foundEnd = cur;
+        break;
       }
       for (const n of neighbors4(cur)) {
         const k = keyOf(n);
@@ -166,7 +180,17 @@
         stack.push(n);
       }
     }
-    return null;
+    if (!foundEnd) return null;
+
+    // Reconstruct full path from chaser to target.
+    const path = [];
+    let step = foundEnd;
+    while (step && (step.col !== chaser.col || step.row !== chaser.row)) {
+      path.unshift(step);
+      step = parent.get(keyOf(step));
+    }
+    chaser._dfsPath = path;
+    return chaser._dfsPath.length > 0 ? chaser._dfsPath.shift() : null;
   }
 
   function astarStep(chaser, target) {
@@ -283,6 +307,8 @@
     }
     currentSeed = usedSeed;
     seedEl.textContent = usedSeed;
+    const seedInput = document.getElementById("wg-seed-input");
+    if (seedInput) seedInput.value = usedSeed;
 
     const worldStr = await TETileClass.toString(world);
     const lines = worldStr.split("\n").filter(l => l.length > 0);
@@ -763,6 +789,23 @@
       });
       const hardBtn = document.getElementById("wg-hard");
       if (hardBtn) hardBtn.addEventListener("click", toggleHard);
+      const seedUseBtn = document.getElementById("wg-seed-use");
+      const seedRandBtn = document.getElementById("wg-seed-random");
+      const seedInput = document.getElementById("wg-seed-input");
+      if (seedUseBtn) seedUseBtn.addEventListener("click", () => {
+        const v = (seedInput.value || "").trim();
+        if (!/^\d+$/.test(v)) return;
+        regenerateGame(v);
+      });
+      if (seedInput) seedInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          const v = (seedInput.value || "").trim();
+          if (/^\d+$/.test(v)) regenerateGame(v);
+        }
+      });
+      if (seedRandBtn) seedRandBtn.addEventListener("click", () => {
+        regenerateGame(randomSeed());
+      });
     }
     window.addEventListener("keydown", onKeyDown);
     window.addEventListener("resize", () => {
