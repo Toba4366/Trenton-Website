@@ -211,6 +211,65 @@
   }
 })();
 
+// Coding-samples timeline: numbered marker (1, 2) updates per piece + image parallax
+(() => {
+  const numEl = document.getElementById("samples-num");
+  const pieces = Array.from(document.querySelectorAll(".sample-piece[data-num]"));
+  if (!numEl || pieces.length === 0) return;
+  const marker = document.querySelector(".samples-marker");
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  let raf = null;
+  function update() {
+    raf = null;
+    const vh = window.innerHeight;
+    const markerY = vh * 0.38 + (marker?.offsetHeight || 56) / 2;
+
+    // Active piece — closest to marker
+    let active = pieces[0];
+    let bestScore = -Infinity;
+    for (const p of pieces) {
+      const rect = p.getBoundingClientRect();
+      if (rect.bottom < 0 || rect.top > vh) continue;
+      const center = rect.top + rect.height / 2;
+      const score = -Math.abs(center - markerY);
+      if (score > bestScore) { bestScore = score; active = p; }
+    }
+    const target = active.dataset.num;
+    if (numEl.textContent !== target) {
+      numEl.textContent = target;
+      if (marker) {
+        marker.classList.add("tick");
+        setTimeout(() => marker.classList.remove("tick"), 260);
+      }
+    }
+
+    // Image parallax — translateY per piece based on viewport position
+    if (!reduced) {
+      const viewCenter = vh / 2;
+      for (const p of pieces) {
+        const img = p.querySelector(".sample-frame img");
+        if (!img) continue;
+        const rect = p.getBoundingClientRect();
+        if (rect.bottom < -200 || rect.top > vh + 200) continue;
+        const center = rect.top + rect.height / 2;
+        const offset = (center - viewCenter) / vh; // -1..+1ish
+        const dy = -offset * 36; // shift up to ±36px
+        img.style.setProperty("--parallax-y", dy + "px");
+      }
+    }
+  }
+
+  function schedule() { if (!raf) raf = requestAnimationFrame(update); }
+  window.addEventListener("scroll", schedule, { passive: true });
+  window.addEventListener("resize", schedule);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", update);
+  } else {
+    update();
+  }
+})();
+
 // Pinned-poster videos: autoplay (muted) when scrolled into view, pause when out.
 // Video starts muted because browsers block unmuted autoplay; the native
 // controls expose a volume button so the user can unmute manually.

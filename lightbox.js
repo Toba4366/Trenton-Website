@@ -58,6 +58,7 @@
       ".research-frame img, " +
       ".diploma-frame-inner img, " +
       ".poster-media img, " +
+      ".sample-frame img, " +
       ".card-with-media .card-media img";
     document.querySelectorAll(targets).forEach(el => {
       el.style.cursor = "zoom-in";
