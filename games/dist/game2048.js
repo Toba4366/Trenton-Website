@@ -197,10 +197,19 @@
     try {
       await newGame();
     } catch (err) {
-      console.error(err);
+      console.error("[2048]", err);
       if (loadingEl) {
         loadingEl.hidden = false;
-        loadingEl.textContent = "Couldn't load runtime: " + err.message + ". Try Chrome/Firefox/Safari latest.";
+        let msg;
+        try {
+          msg = err && (
+            err.detailMessage ||
+            err.message ||
+            (err.getMessage && await err.getMessage()) ||
+            String(err)
+          );
+        } catch (_) { msg = String(err); }
+        loadingEl.textContent = "Couldn't load: " + msg;
       }
     }
   }

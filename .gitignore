@@ -9,3 +9,6 @@ games/2048/
 games/world-gen/
 games/ants/
 build/
+
+# Local-only notes (anything matching *.local.md stays on disk, never pushed)
+*.local.md
