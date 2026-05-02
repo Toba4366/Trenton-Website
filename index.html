@@ -132,7 +132,10 @@
       </div>
 
       <div class="card-grid">
-        <article class="card tilt reveal" style="--tilt: -2.5deg;">
+        <article class="card card-with-media tilt reveal" style="--tilt: -2.5deg;">
+          <a class="card-media" href="https://github.com/Toba4366/CS182_FinalProject" target="_blank" rel="noopener" aria-label="Open CS 182 project poster on GitHub">
+            <img src="docs/posters/cs182-fsm.png" alt="CS 182 In-Context Learning of FSMs poster" loading="lazy" />
+          </a>
           <div class="card-tag">Deep Learning · PyTorch</div>
           <h3>In-Context Learning of Finite State Machines</h3>
           <p>
@@ -144,7 +147,10 @@
             <li><strong>99.85%</strong> LSTM accuracy</li>
             <li><strong>+46.2pp</strong> over RNNs</li>
           </ul>
-          <div class="card-foot">CS 182 · Dec 2025</div>
+          <div class="card-foot">
+            <span>CS 182 · Dec 2025</span>
+            <a class="card-link" href="https://github.com/Toba4366/CS182_FinalProject" target="_blank" rel="noopener">View repo ↗</a>
+          </div>
         </article>
 
         <article class="card tilt reveal" style="--tilt: 1.5deg;">
@@ -207,12 +213,21 @@
             <li><strong>60+ tests</strong> · 100% pass</li>
             <li><strong>17 topics</strong> classified</li>
           </ul>
-          <div class="card-foot">CS 169A · Dec 2025</div>
+          <div class="card-foot">
+            <span>CS 169A · Dec 2025</span>
+            <span class="card-link card-link-muted">Private repo · interactive demo coming</span>
+          </div>
         </article>
 
-        <article class="card tilt reveal" style="--tilt: 1deg;">
+        <article class="card card-with-media tilt reveal" style="--tilt: 1deg;">
+          <div class="card-media card-media-video">
+            <video controls preload="none" poster="docs/posters/dang-dishes.png" playsinline>
+              <source src="docs/dang-dishes-demo.mp4" type="video/mp4" />
+              Your browser doesn't support inline video.
+            </video>
+          </div>
           <div class="card-tag">Full-Stack · React + FastAPI</div>
-          <h3>Dish It Out! — Cooking Assistant</h3>
+          <h3>Dang Dishes — Cooking Assistant</h3>
           <p>
             Generates interactive, parallelized cooking timelines.
             Web scraping, recipe parsing, history tracking — so you
@@ -222,7 +237,10 @@
             <li><strong>Parallel</strong> step planner</li>
             <li><strong>React</strong> + <strong>FastAPI</strong></li>
           </ul>
-          <div class="card-foot">CS 160 · Dec 2025</div>
+          <div class="card-foot">
+            <span>CS 160 · Dec 2025</span>
+            <a class="card-link" href="https://github.com/Toba4366/CS160Project_DangDishes" target="_blank" rel="noopener">View repo ↗</a>
+          </div>
         </article>
 
         <article class="card tilt reveal" style="--tilt: -2deg;">
@@ -241,18 +259,51 @@
         </article>
 
         <article class="card tilt reveal" style="--tilt: 2.5deg;">
-          <div class="card-tag">For Fun · Java</div>
-          <h3>World Generation, 2048, Ants</h3>
+          <div class="card-tag">Game · Java</div>
+          <h3>World Generation</h3>
           <p>
-            A 2D randomized world engine, a 2048 clone, and a
-            Plants-vs-Zombies remake (in Python, 61A days).
-            The classics — small, scrappy, mine.
+            2D tile-based world exploration engine with randomized,
+            reproducible map generation — rooms, hallways, the works.
           </p>
           <ul class="card-stats">
-            <li><strong>61A · 61B</strong></li>
-            <li><strong>'21 · '22</strong></li>
+            <li><strong>CS 61B</strong> · '22</li>
           </ul>
-          <div class="card-foot">Coursework · early Cal</div>
+          <div class="card-foot">
+            <span>Private repo</span>
+            <button class="card-link card-link-muted" type="button" data-game="world" disabled>Play in browser · soon</button>
+          </div>
+        </article>
+
+        <article class="card tilt reveal" style="--tilt: -2deg;">
+          <div class="card-tag">Game · Java</div>
+          <h3>2048</h3>
+          <p>
+            The classic. Slide tiles, merge powers of two, try not
+            to lose to a 4×4 grid.
+          </p>
+          <ul class="card-stats">
+            <li><strong>CS 61B</strong> · '22</li>
+          </ul>
+          <div class="card-foot">
+            <span>Private repo</span>
+            <button class="card-link card-link-muted" type="button" data-game="2048" disabled>Play in browser · soon</button>
+          </div>
+        </article>
+
+        <article class="card tilt reveal" style="--tilt: 1.8deg;">
+          <div class="card-tag">Game · Python (OOP)</div>
+          <h3>Ants</h3>
+          <p>
+            Plants-vs-Zombies, but ants. CS 61A's final boss —
+            inheritance, polymorphism, and tower-defense logic.
+          </p>
+          <ul class="card-stats">
+            <li><strong>CS 61A</strong> · '21</li>
+          </ul>
+          <div class="card-foot">
+            <span>Private repo</span>
+            <button class="card-link card-link-muted" type="button" data-game="ants" disabled>Play in browser · soon</button>
+          </div>
         </article>
       </div>
     </section>
@@ -261,9 +312,20 @@
     <section id="posters" class="posters section">
       <div class="section-head reveal">
         <span class="section-num">03</span>
-        <h2>Posters, badges, prints from the past.</h2>
-        <p class="section-sub">Things I've stuck on a wall. <em>(Drop your scans into <code>docs/posters/</code> and I'll wire them up.)</em></p>
+        <h2>On the wall.</h2>
+        <p class="section-sub">The diploma, the posters, the receipts.</p>
       </div>
+
+      <figure class="diploma-frame reveal">
+        <div class="diploma-frame-inner">
+          <img src="docs/posters/diploma.png" alt="UC Berkeley Bachelor of Arts diploma" draggable="false" />
+        </div>
+        <figcaption>
+          <span class="diploma-eyebrow">The receipt</span>
+          <span class="diploma-title">UC Berkeley · Bachelor of Arts</span>
+          <span class="diploma-meta">Computer Science &amp; Data Science · Class of '25</span>
+        </figcaption>
+      </figure>
 
       <div class="poster-wall">
         <div class="poster reveal" style="--rot: -4deg;">

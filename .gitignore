@@ -1,1 +1,5 @@
 .DS_Store
+
+# Source PDFs that shouldn't be served (we render diploma → image; paper lives on its own GitHub repo)
+docs/diploma.pdf
+docs/182_Final Paper.pdf

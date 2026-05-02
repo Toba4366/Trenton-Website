@@ -506,6 +506,136 @@ body {
   color: var(--muted);
   border-top: 1px dashed var(--line);
   padding-top: 0.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+.card-link {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--coral);
+  text-decoration: none;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: inherit;
+}
+.card-link:hover { color: var(--ink); }
+.card-link-muted {
+  color: var(--muted);
+  cursor: default;
+}
+.card-link-muted:hover { color: var(--muted); }
+button.card-link[disabled] {
+  cursor: inherit;
+  opacity: 0.7;
+}
+
+/* Card with image/video media at the top */
+.card-with-media {
+  padding-top: 0;
+  overflow: hidden;
+}
+.card-media {
+  display: block;
+  margin: 0 -1.4rem;
+  aspect-ratio: 4 / 3;
+  background: var(--bg-2);
+  border-bottom: 1.5px solid var(--ink);
+  overflow: hidden;
+  position: relative;
+  text-decoration: none;
+}
+.card-media img,
+.card-media video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .5s cubic-bezier(.2,.8,.2,1);
+}
+.card-with-media > .card-media:first-child {
+  margin-top: 0;
+  border-top-left-radius: calc(var(--rad) - 2px);
+  border-top-right-radius: calc(var(--rad) - 2px);
+}
+.card-media-video { aspect-ratio: 16 / 11; background: #000; }
+.card-media-video video { object-fit: contain; background: #000; }
+.card-with-media:hover .card-media img { transform: scale(1.04); }
+.card-with-media .card-tag { padding-top: 1rem; }
+
+/* ============== DIPLOMA FRAME ============== */
+.diploma-frame {
+  margin: 0 0 3rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  gap: 2rem;
+  align-items: center;
+}
+.diploma-frame-inner {
+  position: relative;
+  padding: 14px;
+  background:
+    linear-gradient(135deg, #f5e3b3 0%, #e3c275 30%, #b8923a 55%, #e3c275 80%, #f5e3b3 100%);
+  border-radius: 6px;
+  box-shadow:
+    0 1px 0 #fff8 inset,
+    0 -1px 0 #0006 inset,
+    0 30px 60px -30px #15132070,
+    0 8px 18px -10px #15132040;
+  transform: rotate(-1.2deg);
+  transition: transform .4s cubic-bezier(.2,.8,.2,1);
+}
+.diploma-frame-inner::before {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border-radius: 4px;
+  border: 1px solid #00000040;
+  pointer-events: none;
+}
+.diploma-frame-inner:hover { transform: rotate(0); }
+.diploma-frame-inner img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 2px;
+  -webkit-user-drag: none;
+  user-select: none;
+  pointer-events: none;
+}
+.diploma-frame figcaption {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 1rem 0;
+}
+.diploma-eyebrow {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--coral);
+}
+.diploma-title {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(1.4rem, 2.6vw, 1.85rem);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+.diploma-meta {
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+@media (max-width: 760px) {
+  .diploma-frame { grid-template-columns: 1fr; gap: 1.25rem; }
+  .diploma-frame-inner { transform: rotate(-0.6deg); }
 }
 
 /* ============== POSTERS ============== */
