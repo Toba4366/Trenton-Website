@@ -237,19 +237,23 @@
       const center = rect.top + rect.height / 2;
       const offset = (center - viewCenter) / vh; // -1..+1ish
 
-      // Giant numeral: drift opposite to scroll direction (deeper than text)
+      // Giant numeral: drifts opposite to scroll (sits "deeper" than text)
       p.style.setProperty("--numeral-y", (-offset * 80) + "px");
 
-      // Image inside frame: smaller drift, same direction
-      const img = p.querySelector(".sample-frame img");
-      if (img) img.style.setProperty("--parallax-y", (-offset * 30) + "px");
+      // Whole frame drifts as a unit (no black-edge issue from inner-image drift)
+      const frame = p.querySelector(".sample-frame");
+      if (frame) frame.style.setProperty("--frame-y", (-offset * 18) + "px");
     }
 
-    // Site-wide stacked depth layers — different speeds = "depth"
+    // Site-wide stacked depth layers — different speeds = "depth".
+    // Blobs + dots are FIXED-positioned (they're stuck in viewport unless we
+    // shift them); negative translate makes them scroll up at fractional
+    // speeds. Glyphs are ABSOLUTE-positioned (they scroll naturally with
+    // page); positive translate makes them lag behind = appear slower.
     const y = window.scrollY;
     if (blobs)  blobs.style.transform  = `translateY(${(-y * 0.18).toFixed(1)}px)`;
     if (dots)   dots.style.transform   = `translateY(${(-y * 0.45).toFixed(1)}px)`;
-    if (glyphs) glyphs.style.transform = `translateY(${(-y * 0.72).toFixed(1)}px)`;
+    if (glyphs) glyphs.style.transform = `translateY(${(y * 0.18).toFixed(1)}px)`;
   }
 
   function schedule() { if (!raf) raf = requestAnimationFrame(update); }

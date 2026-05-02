@@ -22,20 +22,36 @@
   <div class="grain" aria-hidden="true"></div>
 
   <!-- Site-wide stacked depth layers (option 6) — three parallax planes
-       behind everything: blobs (slowest), dot grid (mid), glyphs (fastest) -->
+       behind everything: blobs (slowest), dot grid (mid), glyphs (fastest).
+       .bg-depth is fixed (viewport-sized window for blobs + dots).
+       .bg-depth-glyphs is absolute and spans the full document height so
+       different glyphs come into view at every scroll depth. -->
   <div class="bg-depth" aria-hidden="true">
     <div class="bg-depth-blobs"></div>
     <div class="bg-depth-dots"></div>
-    <div class="bg-depth-glyphs">
-      <span style="--x:8%;  --y:12%; --r:-6deg;">∑</span>
-      <span style="--x:78%; --y:18%; --r:5deg;">∂</span>
-      <span style="--x:22%; --y:42%; --r:-3deg;">π</span>
-      <span style="--x:88%; --y:56%; --r:7deg;">λ</span>
-      <span style="--x:14%; --y:72%; --r:4deg;">∇</span>
-      <span style="--x:62%; --y:84%; --r:-8deg;">≈</span>
-      <span style="--x:42%; --y:28%; --r:3deg;">{ }</span>
-      <span style="--x:72%; --y:38%; --r:-4deg;">⊗</span>
-    </div>
+  </div>
+  <div class="bg-depth-glyphs" aria-hidden="true">
+    <span style="--x:6%;  --y:1%;  --r:-7deg;">∑</span>
+    <span style="--x:78%; --y:4%;  --r:4deg;">∂</span>
+    <span style="--x:42%; --y:9%;  --r:2deg;">{ }</span>
+    <span style="--x:14%; --y:14%; --r:-3deg;">π</span>
+    <span style="--x:88%; --y:18%; --r:8deg;">λ</span>
+    <span style="--x:32%; --y:23%; --r:-5deg;">⊗</span>
+    <span style="--x:64%; --y:28%; --r:5deg;">∫</span>
+    <span style="--x:8%;  --y:33%; --r:6deg;">→</span>
+    <span style="--x:50%; --y:38%; --r:-2deg;">∇</span>
+    <span style="--x:82%; --y:43%; --r:-6deg;">σ</span>
+    <span style="--x:24%; --y:48%; --r:4deg;">θ</span>
+    <span style="--x:68%; --y:53%; --r:-4deg;">≈</span>
+    <span style="--x:12%; --y:58%; --r:7deg;">η</span>
+    <span style="--x:84%; --y:63%; --r:-3deg;">μ</span>
+    <span style="--x:38%; --y:68%; --r:5deg;">∈</span>
+    <span style="--x:60%; --y:73%; --r:-7deg;">// fn</span>
+    <span style="--x:18%; --y:78%; --r:3deg;">α</span>
+    <span style="--x:74%; --y:83%; --r:-5deg;">β</span>
+    <span style="--x:40%; --y:88%; --r:6deg;">∂</span>
+    <span style="--x:86%; --y:92%; --r:-4deg;">ε</span>
+    <span style="--x:22%; --y:96%; --r:5deg;">δ</span>
   </div>
 
   <header class="nav">

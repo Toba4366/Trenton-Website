@@ -41,6 +41,9 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
+  /* Establishes positioning context for the absolute .bg-depth-glyphs layer
+     so it spans the full document height. */
+  position: relative;
 }
 
 /* paper grain overlay */
@@ -63,10 +66,23 @@ body {
   overflow: hidden;
 }
 .bg-depth-blobs,
-.bg-depth-dots,
-.bg-depth-glyphs {
+.bg-depth-dots {
   position: absolute;
   inset: -25vh;
+  will-change: transform;
+}
+/* Glyph layer is OUTSIDE .bg-depth so it spans the full document — that way
+   glyphs are scattered across every scroll position, not just the first
+   viewport's worth of content. */
+.bg-depth-glyphs {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
   will-change: transform;
 }
 /* Layer 1: slowest — soft warm blobs (deepest) */
@@ -99,11 +115,12 @@ body {
   font-family: var(--display);
   font-style: italic;
   font-weight: 400;
-  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-size: clamp(2.6rem, 6.5vw, 5.5rem);
   color: var(--ink);
-  opacity: 0.045;
+  opacity: 0.085;
   user-select: none;
   letter-spacing: -0.02em;
+  white-space: nowrap;
 }
 @media (prefers-reduced-motion: reduce) {
   .bg-depth-blobs, .bg-depth-dots, .bg-depth-glyphs { transform: none !important; }
@@ -617,6 +634,8 @@ main { position: relative; z-index: 2; }
 .sample-piece-flip .sample-numeral {
   right: auto;
   left: -1rem;
+  top: auto;
+  bottom: -1rem;
   color: var(--plum);
 }
 @media (prefers-reduced-motion: reduce) {
@@ -647,11 +666,12 @@ main { position: relative; z-index: 2; }
     0 -1px 0 #00000080 inset,
     0 22px 50px -22px #15132060,
     0 8px 18px -10px #15132040;
-  transform: rotate(var(--rot, 0deg));
+  transform: rotate(var(--rot, 0deg)) translateY(var(--frame-y, 0px));
   transition: transform .4s cubic-bezier(.2,.8,.2,1);
   width: clamp(240px, 32vw, 400px);
   max-width: 100%;
-  overflow: hidden; /* Parallax mask: image translateY shifts within frame */
+  overflow: hidden;
+  will-change: transform;
 }
 .sample-frame::before {
   content: "";
@@ -671,10 +691,6 @@ main { position: relative; z-index: 2; }
   -webkit-user-drag: none;
   user-select: none;
   cursor: zoom-in;
-  /* Parallax: scale slightly larger so translateY doesn't reveal edges */
-  transform: scale(1.08) translateY(var(--parallax-y, 0px));
-  transition: transform 0.05s linear;
-  will-change: transform;
 }
 
 .sample-body { padding: 0.5rem 0; }
