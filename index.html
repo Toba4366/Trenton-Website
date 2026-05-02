@@ -530,7 +530,32 @@
     </div>
   </div>
 
+  <!-- World Generation modal — runs Trenton's CS61B Engine.java via CheerpJ -->
+  <div class="game-modal" id="wg-modal" role="dialog" aria-labelledby="wg-title" hidden>
+    <div class="game-modal-backdrop" data-close></div>
+    <div class="game-modal-panel game-modal-panel-wide">
+      <header class="game-modal-head">
+        <h2 id="wg-title">World Generation</h2>
+        <div class="game-modal-meta">
+          <span><span class="game-meta-label">Seed</span><strong id="wg-seed">—</strong></span>
+          <span><span class="game-meta-label">Apples</span><strong><span id="wg-coins">0</span>/<span id="wg-total-coins">0</span></strong></span>
+        </div>
+        <button class="game-modal-close" id="wg-close" aria-label="Close">×</button>
+      </header>
+      <div class="game-modal-body wg-body">
+        <div class="game-modal-loading" id="wg-loading">Booting Java in your browser…</div>
+        <canvas id="wg-canvas" class="wg-canvas" hidden></canvas>
+      </div>
+      <footer class="game-modal-foot">
+        <span class="game-modal-hint">Arrows / WASD / HJKL · Esc to close · Swipe on touch · Eat the gold apples</span>
+        <button class="game-modal-restart" id="wg-restart" type="button">New world</button>
+      </footer>
+      <p class="game-modal-credit">Your <strong>Java</strong> Engine — rooms, hallways, apple placement — runs in your browser via <a href="https://cheerpj.com" target="_blank" rel="noopener">CheerpJ</a>. The avatar is JS-side; the algorithm is yours.</p>
+    </div>
+  </div>
+
   <script src="app.js" defer></script>
   <script src="games/dist/game2048.js" defer></script>
+  <script src="games/dist/worldgen.js" defer></script>
 </body>
 </html>

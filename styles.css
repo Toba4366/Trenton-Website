@@ -916,7 +916,28 @@ body.game-open { overflow: hidden; }
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  max-height: calc(100vh - 2rem);
+  overflow-y: auto;
 }
+.game-modal-panel-wide { max-width: 800px; }
+.wg-body {
+  min-height: 200px;
+  align-items: center;
+  justify-content: center;
+}
+.wg-canvas {
+  display: block;
+  background: #0e0a18;
+  border: 1.5px solid var(--ink);
+  border-radius: 6px;
+  max-width: 100%;
+  height: auto;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  touch-action: none;
+}
+.wg-canvas[hidden] { display: none; }
 .game-modal-head {
   display: flex;
   align-items: baseline;
