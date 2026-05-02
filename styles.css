@@ -606,7 +606,7 @@ button.card-link[disabled] {
   border-radius: 2px;
   -webkit-user-drag: none;
   user-select: none;
-  pointer-events: none;
+  cursor: zoom-in;
 }
 .diploma-frame figcaption {
   display: flex;
@@ -638,23 +638,76 @@ button.card-link[disabled] {
   .diploma-frame-inner { transform: rotate(-0.6deg); }
 }
 
-/* ============== RESEARCH WALL (poster + write-up rows) ============== */
+/* ============== RESEARCH WALL (timeline of poster + write-up rows) ============== */
 .research-wall {
   display: grid;
   gap: 3rem;
   margin: 3rem 0 2.5rem;
+  /* Reserve room on the left for the vertical timeline + year chips */
+  padding-left: clamp(48px, 6vw, 84px);
+  position: relative;
+}
+/* The vertical timeline line */
+.research-wall::before {
+  content: "";
+  position: absolute;
+  top: 0.5rem;
+  bottom: 0.5rem;
+  left: clamp(20px, 2.4vw, 36px);
+  width: 2px;
+  background:
+    linear-gradient(to bottom,
+      transparent 0%,
+      var(--gold) 4%,
+      var(--coral) 50%,
+      var(--gold) 96%,
+      transparent 100%);
+  border-radius: 2px;
 }
 .research-piece {
   display: grid;
   grid-template-columns: minmax(0, auto) minmax(0, 1fr);
   gap: 2rem;
   align-items: start;
+  position: relative;
+  /* Tall enough that the sticky frame stays visible while caption text scrolls */
+  min-height: 78vh;
 }
 .research-piece-flip {
   grid-template-columns: minmax(0, 1fr) minmax(0, auto);
 }
 .research-piece-flip .research-frame { grid-column: 2; grid-row: 1; }
 .research-piece-flip .research-caption { grid-column: 1; grid-row: 1; }
+
+/* Year chip on the timeline, positioned over the vertical line */
+.research-piece::before {
+  content: attr(data-year);
+  position: absolute;
+  left: calc(clamp(20px, 2.4vw, 36px) - clamp(48px, 6vw, 84px) - 8px);
+  top: 0.5rem;
+  width: clamp(48px, 5.4vw, 64px);
+  height: clamp(48px, 5.4vw, 64px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(0.85rem, 1.1vw, 1rem);
+  color: var(--ink);
+  background: var(--gold);
+  border: 2.5px solid var(--ink);
+  border-radius: 999px;
+  z-index: 2;
+  box-shadow: 0 4px 0 #15132030;
+  letter-spacing: -0.01em;
+}
+
+/* Sticky parallax: poster stays put while the caption scrolls past */
+.research-piece > .research-frame {
+  position: sticky;
+  top: clamp(72px, 10vh, 120px);
+  align-self: start;
+}
 
 .research-frame {
   position: relative;
@@ -758,19 +811,137 @@ button.card-link[disabled] {
 }
 
 @media (max-width: 760px) {
-  .research-wall { gap: 2.25rem; }
-  .research-piece { grid-template-columns: 1fr; gap: 1rem; }
+  .research-wall {
+    gap: 2.25rem;
+    padding-left: 36px;
+  }
+  .research-wall::before { left: 12px; }
+  .research-piece {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    min-height: 0;  /* No sticky parallax on small screens — feels weird w/ stacked layout */
+  }
+  .research-piece::before {
+    left: -32px;
+    top: -8px;
+    width: 44px;
+    height: 44px;
+    font-size: 0.78rem;
+  }
   .research-piece-flip .research-frame,
   .research-piece-flip .research-caption {
     grid-column: 1;
     grid-row: auto;
   }
-  .research-frame {
+  .research-piece > .research-frame {
+    position: static;
     transform: rotate(0);
     width: 100%;
     max-width: 360px;
     margin: 0 auto;
   }
+}
+
+/* ============== POSTER LIGHTBOX ============== */
+.poster-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.poster-lightbox[hidden] { display: none; }
+body.lightbox-open { overflow: hidden; }
+
+.poster-lightbox-bg {
+  position: absolute;
+  inset: 0;
+  background: rgba(13, 9, 22, 0.94);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  cursor: zoom-out;
+}
+.poster-lightbox-stage {
+  position: relative;
+  z-index: 1;
+  max-width: 95vw;
+  max-height: 95vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  user-select: none;
+}
+.poster-lightbox img {
+  max-width: 95vw;
+  max-height: 95vh;
+  width: auto;
+  height: auto;
+  cursor: grab;
+  transform-origin: center center;
+  -webkit-user-drag: none;
+  user-select: none;
+  display: block;
+}
+.poster-lightbox img:active { cursor: grabbing; }
+
+.poster-lightbox-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 3;
+  background: rgba(255, 255, 255, 0.12);
+  color: white;
+  border: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background .15s ease, transform .15s ease;
+  font-family: var(--sans);
+}
+.poster-lightbox-close:hover { background: rgba(255, 255, 255, 0.25); transform: scale(1.05); }
+
+.poster-lightbox-controls {
+  position: absolute;
+  bottom: 1.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 0.4rem 0.55rem;
+  border-radius: 999px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.poster-lightbox-controls button {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 0;
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  font-family: var(--mono);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .15s ease;
+}
+.poster-lightbox-controls button:hover { background: rgba(255, 255, 255, 0.25); }
+.poster-lightbox-hint {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.7);
+  padding: 0 0.6rem 0 0.4rem;
+}
+@media (max-width: 600px) {
+  .poster-lightbox-hint { display: none; }
 }
 
 /* ============== POSTERS ============== */
