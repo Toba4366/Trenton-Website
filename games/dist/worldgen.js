@@ -14,6 +14,8 @@
   const JAR_VERSION = "2";
   const JAR_URL = `/app/games/dist/worldgen.jar?v=${JAR_VERSION}`;
   const MAX_SEED_RETRIES = 5;
+  const MUSIC_URL = "games/dist/bulletsong.mp3";
+  const MUSIC_PREF_KEY = "trenton-wg-music";  // "on" | "off"
   const CHEERPJ_LOADER = "https://cjrtnc.leaningtech.com/3.0/cj3loader.js";
 
   let cheerpReady = null;
@@ -21,7 +23,8 @@
   let EngineClass = null;
   let TETileClass = null;
 
-  let modal, canvas, ctx, seedEl, coinsEl, totalCoinsEl, loadingEl;
+  let modal, canvas, ctx, seedEl, coinsEl, totalCoinsEl, loadingEl, statusEl, musicBtn;
+  let audio = null;
   let grid = null;       // 2D char array, [row][col], row 0 is top
   let avatar = null;     // {col, row}
   let coins = 0;
@@ -112,9 +115,12 @@
   function sizeCanvas() {
     if (!canvas) return;
     const wrapper = canvas.parentElement;
-    const available = Math.min(wrapper.clientWidth, 720);
+    // Cap by viewport height so HUD/footer stay visible
+    const verticalReserve = 320; // header + footer + credit + padding
+    const maxFromHeight = Math.max(240, window.innerHeight - verticalReserve);
+    const available = Math.min(wrapper.clientWidth, maxFromHeight, 720);
     const dpr = window.devicePixelRatio || 1;
-    tileSize = Math.floor(available / W);
+    tileSize = Math.max(8, Math.floor(available / W));
     const pxW = tileSize * W;
     const pxH = tileSize * H;
     canvas.style.width = pxW + "px";
@@ -256,6 +262,59 @@
     avatar.col = nc;
     avatar.row = nr;
     render();
+    if (coins === totalCoins && totalCoins > 0) {
+      showStatus("🍎 You ate every apple. Hit “New world” for a new map.");
+    }
+  }
+
+  function showStatus(text) {
+    if (!statusEl) return;
+    statusEl.textContent = text;
+    statusEl.hidden = false;
+  }
+  function hideStatus() {
+    if (statusEl) statusEl.hidden = true;
+  }
+
+  // ── Music ───────────────────────────────────────────────────────────
+  function ensureAudio() {
+    if (audio) return audio;
+    audio = new Audio(MUSIC_URL);
+    audio.loop = true;
+    audio.volume = 0.35;
+    audio.preload = "none";
+    return audio;
+  }
+
+  function musicWanted() {
+    return (localStorage.getItem(MUSIC_PREF_KEY) || "on") === "on";
+  }
+  function setMusicPref(on) {
+    localStorage.setItem(MUSIC_PREF_KEY, on ? "on" : "off");
+    syncMusicButton();
+  }
+  function syncMusicButton() {
+    if (!musicBtn) return;
+    const on = musicWanted();
+    musicBtn.textContent = on ? "♪ Music: on" : "♪ Music: off";
+    musicBtn.setAttribute("aria-pressed", String(on));
+  }
+  function playMusic() {
+    if (!musicWanted()) return;
+    const a = ensureAudio();
+    // Browsers may block autoplay; .play() returns a promise that rejects then.
+    const p = a.play();
+    if (p && p.catch) p.catch((err) => {
+      console.warn("[worldgen] music autoplay blocked:", err);
+    });
+  }
+  function stopMusic() {
+    if (audio) { audio.pause(); audio.currentTime = 0; }
+  }
+  function toggleMusic() {
+    const on = !musicWanted();
+    setMusicPref(on);
+    if (on) playMusic(); else stopMusic();
   }
 
   // ── Input ───────────────────────────────────────────────────────────
@@ -302,6 +361,8 @@
     coinsEl       = document.getElementById("wg-coins");
     totalCoinsEl  = document.getElementById("wg-total-coins");
     loadingEl     = document.getElementById("wg-loading");
+    statusEl      = document.getElementById("wg-status");
+    musicBtn      = document.getElementById("wg-music-toggle");
   }
 
   async function openGame() {
@@ -309,6 +370,9 @@
     cacheEls();
     modal.hidden = false;
     document.body.classList.add("game-open");
+    syncMusicButton();
+    playMusic();
+    hideStatus();
     if (loadingEl) {
       loadingEl.hidden = false;
       loadingEl.textContent = "Booting Java in your browser & generating world…";
@@ -334,11 +398,13 @@
     if (!modal) return;
     modal.hidden = true;
     document.body.classList.remove("game-open");
+    stopMusic();
   }
 
   async function newWorld() {
     if (busy) return;
     busy = true;
+    hideStatus();
     try {
       loadingEl.hidden = false;
       loadingEl.textContent = "Generating new world…";
@@ -366,6 +432,8 @@
     const restartBtn = document.getElementById("wg-restart");
     if (closeBtn) closeBtn.addEventListener("click", closeGame);
     if (restartBtn) restartBtn.addEventListener("click", newWorld);
+    const mBtn = document.getElementById("wg-music-toggle");
+    if (mBtn) mBtn.addEventListener("click", toggleMusic);
     if (modal) {
       modal.querySelectorAll("[data-close]").forEach((el) => {
         el.addEventListener("click", closeGame);

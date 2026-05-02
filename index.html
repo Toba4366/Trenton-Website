@@ -542,15 +542,26 @@
         </div>
         <button class="game-modal-close" id="wg-close" aria-label="Close">×</button>
       </header>
+
+      <div class="wg-howto">
+        <strong>How to play.</strong>
+        Move the <span class="wg-legend wg-legend-avatar"></span> avatar with <kbd>↑</kbd> <kbd>↓</kbd> <kbd>←</kbd> <kbd>→</kbd> /
+        <kbd>WASD</kbd> / <kbd>HJKL</kbd> (or swipe). Eat every gold apple <span class="wg-legend wg-legend-apple"></span> to win.
+        <kbd>Esc</kbd> or click outside to close. <kbd>New world</kbd> regenerates with a fresh seed.
+      </div>
+
       <div class="game-modal-body wg-body">
         <div class="game-modal-loading" id="wg-loading">Booting Java in your browser…</div>
         <canvas id="wg-canvas" class="wg-canvas" hidden></canvas>
       </div>
-      <footer class="game-modal-foot">
-        <span class="game-modal-hint">Arrows / WASD / HJKL · Esc to close · Swipe on touch · Eat the gold apples</span>
+
+      <div class="wg-status" id="wg-status" hidden></div>
+
+      <footer class="game-modal-foot wg-foot">
+        <button class="wg-music" id="wg-music-toggle" type="button" aria-pressed="true">♪ Music: on</button>
         <button class="game-modal-restart" id="wg-restart" type="button">New world</button>
       </footer>
-      <p class="game-modal-credit">Your <strong>Java</strong> Engine — rooms, hallways, apple placement — runs in your browser via <a href="https://cheerpj.com" target="_blank" rel="noopener">CheerpJ</a>. The avatar is JS-side; the algorithm is yours.</p>
+      <p class="game-modal-credit">Your <strong>Java</strong> Engine — rooms, hallways, apple placement — runs in your browser via <a href="https://cheerpj.com" target="_blank" rel="noopener">CheerpJ</a>. The avatar is JS-side; the algorithm is yours. Music: <em>bulletsong.wav</em> by Trenton (the file in your repo).</p>
     </div>
   </div>
 

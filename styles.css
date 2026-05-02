@@ -938,6 +938,85 @@ body.game-open { overflow: hidden; }
   touch-action: none;
 }
 .wg-canvas[hidden] { display: none; }
+
+.wg-howto {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  background: var(--bg-2);
+  border: 1px dashed var(--line);
+  border-radius: 8px;
+  padding: 0.6rem 0.85rem;
+}
+.wg-howto strong {
+  font-family: var(--display);
+  font-weight: 700;
+  color: var(--ink);
+  font-size: 0.95rem;
+  display: inline;
+  margin-right: 0.35rem;
+}
+.wg-howto kbd {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-bottom-width: 2px;
+  padding: 1px 5px;
+  border-radius: 4px;
+  margin: 0 1px;
+}
+.wg-legend {
+  display: inline-block;
+  width: 0.85em;
+  height: 0.85em;
+  border-radius: 50%;
+  vertical-align: -2px;
+  margin: 0 2px;
+}
+.wg-legend-avatar {
+  background: #f25c54;
+  box-shadow: 0 0 0 1.5px #003262;
+}
+.wg-legend-apple {
+  background: #fdb515;
+  box-shadow: 0 0 0 1px #003262;
+}
+
+.wg-status {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1rem;
+  text-align: center;
+  color: var(--ink);
+  background: var(--gold);
+  border: 1.5px solid var(--ink);
+  border-radius: 8px;
+  padding: 0.6rem 0.75rem;
+  letter-spacing: -0.005em;
+}
+.wg-status[hidden] { display: none; }
+
+.wg-foot { gap: 0.75rem; }
+.wg-music {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  background: transparent;
+  color: var(--ink-soft);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.4rem 0.85rem;
+  cursor: pointer;
+  transition: color .15s ease, border-color .15s ease;
+}
+.wg-music:hover {
+  color: var(--ink);
+  border-color: var(--ink);
+}
+.wg-music[aria-pressed="false"] {
+  color: var(--muted);
+}
 .game-modal-head {
   display: flex;
   align-items: baseline;
