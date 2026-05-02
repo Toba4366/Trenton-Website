@@ -117,11 +117,11 @@
     }
   }
 
-  // ── KONAMI: ↑↑↓↓←→←→ B A → confetti rain ────────────────
+  // ── KONAMI-ish: ↑↑↓↓←→←→ T O B → confetti rain ─────────
   const KONAMI = [
     "ArrowUp","ArrowUp","ArrowDown","ArrowDown",
     "ArrowLeft","ArrowRight","ArrowLeft","ArrowRight",
-    "b","a"
+    "t","o","b"
   ];
   let buf = [];
   const colors = ["#fdb515", "#003262", "#f25c54", "#6c4ab6", "#15131c"];
