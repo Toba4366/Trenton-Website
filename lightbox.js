@@ -57,8 +57,7 @@
     const targets = "" +
       ".research-frame img, " +
       ".diploma-frame-inner img, " +
-      ".poster img, " +
-      ".talk-media img, " +
+      ".poster-media img, " +
       ".card-with-media .card-media img";
     document.querySelectorAll(targets).forEach(el => {
       el.style.cursor = "zoom-in";

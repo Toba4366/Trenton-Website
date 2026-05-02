@@ -210,3 +210,26 @@
     update();
   }
 })();
+
+// Pinned-poster videos: autoplay (muted) when scrolled into view, pause when out.
+// Video starts muted because browsers block unmuted autoplay; the native
+// controls expose a volume button so the user can unmute manually.
+(() => {
+  const videos = document.querySelectorAll(".poster-media-video video");
+  if (videos.length === 0 || !("IntersectionObserver" in window)) return;
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduced) return;
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      const v = entry.target;
+      if (entry.isIntersecting) {
+        const p = v.play();
+        if (p && p.catch) p.catch(() => {});
+      } else {
+        v.pause();
+      }
+    });
+  }, { threshold: 0.45 });
+  videos.forEach((v) => io.observe(v));
+})();
