@@ -671,6 +671,26 @@ body {
   color: var(--ink);
   margin: 0 0 0.9rem;
 }
+.sample-caveat {
+  font-family: var(--sans) !important;
+  font-size: 0.86rem !important;
+  line-height: 1.5 !important;
+  color: var(--ink-soft) !important;
+  background: var(--bg-2);
+  border-left: 3px solid var(--coral);
+  padding: 0.7rem 0.9rem !important;
+  border-radius: 4px;
+  margin-bottom: 0.9rem !important;
+}
+.sample-caveat strong {
+  font-family: var(--display);
+  font-weight: 700;
+  color: var(--ink);
+}
+.sample-caveat em {
+  font-style: italic;
+  color: var(--coral);
+}
 .sample-stats {
   list-style: none;
   margin: 0 0 0.9rem;
