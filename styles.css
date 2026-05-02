@@ -529,6 +529,33 @@ body {
   color: var(--muted);
   cursor: default;
 }
+.card-grid-2 {
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+}
+.card-downloads {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+}
+.card-downloads a {
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  font-weight: 500;
+  background: var(--bg-2);
+  border: 1px solid var(--ink);
+  padding: 0.4rem 0.75rem;
+  border-radius: 999px;
+  color: var(--ink);
+  text-decoration: none;
+  transition: background .15s ease, color .15s ease, transform .15s ease;
+  white-space: nowrap;
+}
+.card-downloads a:hover {
+  background: var(--ink);
+  color: var(--bg);
+  transform: translateY(-1px);
+}
 .card-link-muted:hover { color: var(--muted); }
 button.card-link[disabled] {
   cursor: inherit;

@@ -25,6 +25,7 @@
     <a href="#top" class="nav-mark">TOB<span class="dot">.</span></a>
     <nav class="nav-links" aria-label="Primary">
       <a href="#about">About</a>
+      <a href="#samples">Samples</a>
       <a href="#projects">Projects</a>
       <a href="#posters">Wall</a>
       <a href="#experience">Life</a>
@@ -134,36 +135,75 @@
     </section>
 
     <!-- PROJECTS -->
-    <section id="projects" class="projects section">
+    <!-- CODING SAMPLES — writing+code submissions for grad/predoc apps -->
+    <section id="samples" class="coding-samples section">
       <div class="section-head reveal">
         <span class="section-num">02</span>
-        <h2>Projects I'm proud of.</h2>
-        <p class="section-sub">Class projects and side builds. Research lives <a href="#posters">on the wall</a> ↓.</p>
+        <h2>Coding samples.</h2>
+        <p class="section-sub">Writing + code I send with grad-school and predoc applications.</p>
       </div>
 
-      <div class="card-grid">
-        <article class="card card-with-media tilt reveal" style="--tilt: -2.5deg;">
-          <a class="card-media" href="https://github.com/Toba4366/CS182_FinalProject" target="_blank" rel="noopener" aria-label="Open CS 182 project poster on GitHub">
+      <div class="card-grid card-grid-2">
+        <article class="card card-with-media tilt reveal" style="--tilt: -1.5deg;">
+          <a class="card-media" href="docs/coding-samples/cs182-paper.pdf" target="_blank" rel="noopener" aria-label="Open the CS 182 paper PDF">
             <img src="docs/posters/cs182-fsm.png" alt="CS 182 In-Context Learning of FSMs poster" loading="lazy" />
           </a>
-          <div class="card-tag">Deep Learning · PyTorch</div>
+          <div class="card-tag">Deep Learning · PyTorch · Senior capstone</div>
           <h3>In-Context Learning of Finite State Machines</h3>
           <p>
-            Senior capstone. Pitted Transformers, LSTMs, GRUs, and
-            vanilla RNNs against DFA learning tasks to study
-            generalization dynamics. Wrote the trainers, ablations,
-            and a 10K-sample eval framework from scratch.
+            Pitted Transformers, LSTMs, GRUs, and vanilla RNNs against
+            DFA learning tasks to study generalization dynamics.
+            Wrote the trainers, ablations, and a 10K-sample eval
+            framework from scratch.
           </p>
           <ul class="card-stats">
             <li><strong>99.85%</strong> LSTM accuracy</li>
             <li><strong>+46.2pp</strong> over RNNs</li>
           </ul>
+          <div class="card-downloads">
+            <a href="docs/coding-samples/cs182-paper.pdf" target="_blank" rel="noopener">📄 Writing sample</a>
+            <a href="docs/coding-samples/cs182-coding-sample.pdf" target="_blank" rel="noopener">💻 Coding sample</a>
+            <a href="https://github.com/Toba4366/CS182_FinalProject" target="_blank" rel="noopener">↗ Code repo</a>
+          </div>
           <div class="card-foot">
-            <span>CS 182 · Dec 2025</span>
-            <a class="card-link" href="https://github.com/Toba4366/CS182_FinalProject" target="_blank" rel="noopener">View repo ↗</a>
+            <span>CS 182 · Dec 2025 · UC Berkeley</span>
           </div>
         </article>
 
+        <article class="card tilt reveal" style="--tilt: 1.5deg;">
+          <div class="card-tag">Empirical Finance · R · Predoc challenge</div>
+          <h3>Monetary Policy Surprises &amp; Asset Price Responses</h3>
+          <p>
+            MIT Sloan predoctoral take-home. Estimated how monetary-
+            policy surprises (STMT, the principal-component summary of
+            short-rate news) propagate to Treasury yields, breakeven
+            inflation, and exchange rates. Heteroskedasticity-robust
+            regressions, cross-country panel including NFA/GDP
+            heterogeneity.
+          </p>
+          <ul class="card-stats">
+            <li><strong>274 FOMC</strong> announcements (1994–'24)</li>
+            <li><strong>8 currencies</strong> · 2/5/10Y yields</li>
+          </ul>
+          <div class="card-downloads">
+            <a href="docs/coding-samples/mit-challenge-writeup.pdf" target="_blank" rel="noopener">📄 Writeup</a>
+            <a href="https://github.com/Toba4366/MIT-Coding-Challenge" target="_blank" rel="noopener">↗ Code repo</a>
+          </div>
+          <div class="card-foot">
+            <span>MIT Sloan predoc · 2026</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="projects" class="projects section">
+      <div class="section-head reveal">
+        <span class="section-num">03</span>
+        <h2>Projects I'm proud of.</h2>
+        <p class="section-sub">Class projects and games. Coding samples <a href="#samples">↑</a> and research <a href="#posters">↓</a> get their own sections.</p>
+      </div>
+
+      <div class="card-grid">
         <article class="card tilt reveal" style="--tilt: -1.5deg;">
           <div class="card-tag">Full-Stack · Ruby on Rails</div>
           <h3>ActionMap — Civic Engagement App</h3>
@@ -276,7 +316,7 @@
     <!-- WALL — diploma + research posters + memorabilia -->
     <section id="posters" class="posters section">
       <div class="section-head reveal">
-        <span class="section-num">03</span>
+        <span class="section-num">04</span>
         <h2>On the wall.</h2>
         <p class="section-sub">Diploma, four summers of research posters, and the receipts.</p>
       </div>
@@ -427,7 +467,7 @@
     <!-- LIFE / EXPERIENCE -->
     <section id="experience" class="experience section">
       <div class="section-head reveal">
-        <span class="section-num">04</span>
+        <span class="section-num">05</span>
         <h2>The rest of the timeline.</h2>
       </div>
 
@@ -477,7 +517,7 @@
     <!-- CONTACT -->
     <section id="contact" class="contact section">
       <div class="section-head reveal">
-        <span class="section-num">05</span>
+        <span class="section-num">06</span>
         <h2>Say hi.</h2>
       </div>
 
