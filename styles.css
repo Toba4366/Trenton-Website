@@ -841,6 +841,106 @@ button.card-link[disabled] {
   }
 }
 
+/* ============== TALKS & CONFERENCES ============== */
+.talks {
+  margin: 4rem 0 1rem;
+  padding-top: 2rem;
+  border-top: 1px dashed var(--line);
+}
+.talks-head {
+  margin-bottom: 1.5rem;
+}
+.talks-head h3 {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: clamp(1.3rem, 2.2vw, 1.65rem);
+  letter-spacing: -0.02em;
+  margin: 0 0 0.35rem;
+}
+.talks-head p {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+}
+.talks-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1.25rem;
+}
+.talk {
+  display: grid;
+  grid-template-columns: clamp(96px, 14vw, 160px) 1fr;
+  gap: 1.25rem;
+  align-items: start;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--line);
+}
+.talk:last-child { border-bottom: 0; }
+
+.talk-media,
+.talk-icon {
+  aspect-ratio: 1;
+  border-radius: 10px;
+  border: 1.5px solid var(--ink);
+  background: var(--bg-2);
+  overflow: hidden;
+  position: relative;
+}
+.talk-media img,
+.talk-media video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.talk-media img { cursor: zoom-in; }
+.talk-media video { cursor: pointer; background: #000; }
+
+.talk-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(1.6rem, 3.6vw, 2.6rem);
+  filter: saturate(0.92);
+}
+
+.talk-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding-top: 0.2rem;
+}
+.talk-when {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  color: var(--coral);
+}
+.talk-where {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: clamp(1rem, 1.4vw, 1.15rem);
+  color: var(--ink);
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+.talk-what {
+  font-size: 0.92rem;
+  color: var(--ink-soft);
+}
+
+@media (max-width: 600px) {
+  .talk {
+    grid-template-columns: 80px 1fr;
+    gap: 0.85rem;
+    padding: 0.75rem 0;
+  }
+  .talk-icon { font-size: 1.6rem; }
+}
+
 /* ============== POSTER LIGHTBOX ============== */
 .poster-lightbox {
   position: fixed;
