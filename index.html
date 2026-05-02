@@ -505,6 +505,32 @@
     </footer>
   </main>
 
+  <!-- 2048 modal — runs Trenton's CS61B Java logic via CheerpJ -->
+  <div class="game-modal" id="g2048-modal" role="dialog" aria-labelledby="g2048-title" hidden>
+    <div class="game-modal-backdrop" data-close></div>
+    <div class="game-modal-panel">
+      <header class="game-modal-head">
+        <h2 id="g2048-title">2048</h2>
+        <div class="game-modal-meta">
+          <span><span class="game-meta-label">Score</span><strong id="g2048-score">0</strong></span>
+          <span><span class="game-meta-label">Best</span><strong id="g2048-best">0</strong></span>
+        </div>
+        <button class="game-modal-close" id="g2048-close" aria-label="Close">×</button>
+      </header>
+      <div class="game-modal-body">
+        <div class="game-modal-loading" id="g2048-loading">Booting Java in your browser… (first load ~10s)</div>
+        <div class="game-board" id="g2048-board" hidden></div>
+        <div class="game-modal-status" id="g2048-status" hidden></div>
+      </div>
+      <footer class="game-modal-foot">
+        <span class="game-modal-hint">Arrows / WASD / HJKL · Esc to close · Swipe on touch</span>
+        <button class="game-modal-restart" id="g2048-restart" type="button">New game</button>
+      </footer>
+      <p class="game-modal-credit">Your <strong>Java</strong> Model · Board · Tile · Side, running in your browser via <a href="https://cheerpj.com" target="_blank" rel="noopener">CheerpJ</a> (WebAssembly). The GUI is JS-on-canvas so we ship 7 KB instead of Berkeley's 68 KB lib.</p>
+    </div>
+  </div>
+
   <script src="app.js" defer></script>
+  <script src="games/dist/game2048.js" defer></script>
 </body>
 </html>
