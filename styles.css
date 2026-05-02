@@ -646,9 +646,12 @@ button.card-link[disabled] {
 }
 .research-piece {
   display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, auto) minmax(0, 1fr);
   gap: 2rem;
-  align-items: center;
+  align-items: start;
+}
+.research-piece-flip {
+  grid-template-columns: minmax(0, 1fr) minmax(0, auto);
 }
 .research-piece-flip .research-frame { grid-column: 2; grid-row: 1; }
 .research-piece-flip .research-caption { grid-column: 1; grid-row: 1; }
@@ -666,6 +669,10 @@ button.card-link[disabled] {
     0 8px 18px -10px #15132040;
   transform: rotate(var(--rot, 0deg));
   transition: transform .4s cubic-bezier(.2,.8,.2,1);
+  /* Cap so portrait-orientation posters don't tower off the viewport.
+     Scales with viewport: ~280px on tablets, up to 400px on large screens. */
+  width: clamp(240px, 32vw, 400px);
+  max-width: 100%;
 }
 .research-frame::before {
   content: "";
@@ -758,7 +765,12 @@ button.card-link[disabled] {
     grid-column: 1;
     grid-row: auto;
   }
-  .research-frame { transform: rotate(0); }
+  .research-frame {
+    transform: rotate(0);
+    width: 100%;
+    max-width: 360px;
+    margin: 0 auto;
+  }
 }
 
 /* ============== POSTERS ============== */
