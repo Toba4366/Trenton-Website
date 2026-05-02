@@ -1171,6 +1171,172 @@ body.game-open { overflow: hidden; }
 #wg-chasers-info .wg-chaser-chip {
   margin-right: 4px;
 }
+
+/* ============== ANTS ============== */
+.ants-panel { max-width: 980px; }
+
+.ants-disclaimer {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  background: var(--bg-2);
+  border: 1px dashed var(--coral);
+  border-radius: 8px;
+  padding: 0.7rem 0.95rem;
+}
+.ants-disclaimer strong {
+  font-family: var(--display);
+  color: var(--coral);
+  font-weight: 700;
+  font-size: 0.85rem;
+  margin-right: 0.25rem;
+}
+.ants-disclaimer code {
+  font-family: var(--mono);
+  background: var(--bg);
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-size: 0.92em;
+}
+.ants-disclaimer a { color: var(--coral); }
+
+.ants-controls { display: grid; gap: 0.5rem; }
+.ants-control-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.ants-types {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding: 0.4rem 0.1rem;
+  scrollbar-width: thin;
+}
+.ant-card {
+  flex: 0 0 auto;
+  min-width: 84px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  background: var(--bg-2);
+  border: 1.5px solid var(--ink);
+  border-radius: 10px;
+  padding: 0.4rem 0.5rem;
+  cursor: pointer;
+  font-family: var(--sans);
+  transition: transform .15s ease, background .15s ease, border-color .15s ease, opacity .15s ease;
+}
+.ant-card:hover { transform: translateY(-2px); }
+.ant-card.selected {
+  background: var(--gold);
+  border-color: var(--coral);
+  box-shadow: 0 0 0 2px var(--coral);
+}
+.ant-card.disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.ant-card img {
+  width: 36px;
+  height: 36px;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+.ant-card-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--ink);
+  text-align: center;
+  line-height: 1.1;
+}
+.ant-card-cost {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--ink-soft);
+}
+.ant-card.selected .ant-card-label,
+.ant-card.selected .ant-card-cost { color: var(--ink); }
+
+.ants-body {
+  min-height: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ants-grid {
+  display: grid;
+  width: 100%;
+  background: #0e0a18;
+  border: 1.5px solid var(--ink);
+  border-radius: 10px;
+  overflow: hidden;
+  gap: 1px;
+  padding: 1px;
+}
+.ants-grid[hidden] { display: none; }
+
+.ants-cell {
+  position: relative;
+  aspect-ratio: 1;
+  min-height: 56px;
+  background: #1a1325;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: outline-color .12s ease;
+  outline: 2px solid transparent;
+  outline-offset: -2px;
+}
+.ants-cell-tunnel:hover,
+.ants-cell-water:hover { outline-color: var(--gold); }
+
+.ants-cell-base,
+.ants-cell-hive {
+  cursor: default;
+  font-size: 1.6rem;
+  background: var(--bg-2);
+  color: var(--ink);
+}
+.ants-cell-base { border-right: 2px solid var(--coral); }
+.ants-cell-hive { border-left: 2px solid var(--coral); }
+
+.ants-sprite {
+  width: 70%;
+  height: auto;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  pointer-events: none;
+}
+.ants-ant {
+  position: relative;
+  z-index: 2;
+}
+.ants-ant-contained {
+  position: absolute;
+  width: 36%;
+  bottom: 4px;
+  right: 4px;
+  z-index: 3;
+}
+.ants-bee {
+  position: absolute;
+  width: 50%;
+  z-index: 4;
+  filter: drop-shadow(0 1px 2px #00000060);
+}
+
+@media (max-width: 720px) {
+  .ants-cell { min-height: 38px; }
+  .ant-card { min-width: 72px; padding: 0.35rem; }
+  .ant-card img { width: 28px; height: 28px; }
+}
 .game-modal-head {
   display: flex;
   align-items: baseline;

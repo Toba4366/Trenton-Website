@@ -301,10 +301,12 @@
 
         <article class="card tilt reveal" style="--tilt: 1.8deg;">
           <div class="card-tag">Game · Python (OOP)</div>
-          <h3>Ants</h3>
+          <h3>Ants Vs. SomeBees</h3>
           <p>
             Plants-vs-Zombies, but ants. CS 61A's final boss —
             inheritance, polymorphism, and tower-defense logic.
+            Framework + sprites by course staff; the
+            <em>action methods</em> are mine.
           </p>
           <ul class="card-stats">
             <li><strong>CS 61A</strong> · '21</li>
@@ -549,7 +551,7 @@
         <span class="game-modal-hint">Arrows / WASD / HJKL · Esc to close · Swipe on touch</span>
         <button class="game-modal-restart" id="g2048-restart" type="button">New game</button>
       </footer>
-      <p class="game-modal-credit">Your <strong>Java</strong> Model · Board · Tile · Side, running in your browser via <a href="https://cheerpj.com" target="_blank" rel="noopener">CheerpJ</a> (WebAssembly). The GUI is JS-on-canvas so we ship 7 KB instead of Berkeley's 68 KB lib.</p>
+      <p class="game-modal-credit">CS 61B Project 0 — game framework by course staff (P. N. Hilfinger). The <strong>Model · Board · Tile · Side</strong> implementation is Trenton's, compiled to a 7 KB jar that runs in your browser via <a href="https://cheerpj.com" target="_blank" rel="noopener">CheerpJ</a> (WebAssembly). GUI is a fresh JS canvas re-render — no staff-licensed library ships.</p>
     </div>
   </div>
 
@@ -623,12 +625,63 @@
         <button class="wg-music" id="wg-music-toggle" type="button" aria-pressed="true">♪ Music: on</button>
         <button class="game-modal-restart" id="wg-restart" type="button">New world</button>
       </footer>
-      <p class="game-modal-credit">Your <strong>Java</strong> Engine — rooms, hallways, apple placement — runs in your browser via <a href="https://cheerpj.com" target="_blank" rel="noopener">CheerpJ</a>. The avatar, chaser shapes, and four pathfinding algorithms (Greedy / DFS / BFS / A*) are JS-side. Music: <em>bulletsong.wav</em>.</p>
+      <p class="game-modal-credit">CS 61B Project 3 — project framework + tile system by course staff. The <strong>world-generation algorithm</strong> (rooms, hallways, apple placement) is by Trenton with project partner <strong>Kamoni Fletcher</strong> (line brother, Alpha Phi Alpha). Compiled to a 20 KB jar via <a href="https://cheerpj.com" target="_blank" rel="noopener">CheerpJ</a>. The avatar, chaser shapes, and four pathfinding algorithms (Greedy / DFS / BFS / A*) are JS-side. Music: <em>bulletsong.wav</em>.</p>
+    </div>
+  </div>
+
+  <!-- Ants modal — runs Trenton's CS61A ants.py via Pyodide -->
+  <div class="game-modal" id="ants-modal" role="dialog" aria-labelledby="ants-title" hidden>
+    <div class="game-modal-backdrop" data-close></div>
+    <div class="game-modal-panel game-modal-panel-wide ants-panel">
+      <header class="game-modal-head">
+        <h2 id="ants-title">Ants Vs. SomeBees</h2>
+        <div class="game-modal-meta">
+          <span><span class="game-meta-label">🍃 Food</span><strong id="ants-food">0</strong></span>
+          <span><span class="game-meta-label">Time</span><strong id="ants-time">0</strong></span>
+        </div>
+        <button class="game-modal-close" id="ants-close" aria-label="Close">×</button>
+      </header>
+
+      <div class="ants-disclaimer">
+        <strong>About this demo.</strong> CS 61A "Ants Vs. SomeBees" is a UC Berkeley course project. The game framework, class hierarchy, and original sprites in this demo are <em>course staff materials</em>, used here only as a runtime portfolio showcase. The implementation logic — most of <code>ants.py</code>: ant action methods, throwing/merging rules, container-ant logic, QueenAnt — is Trenton's. Source is shipped as marshalled bytecode rather than as raw <code>.py</code> to avoid leaking the full course solution. <a href="https://inst.eecs.berkeley.edu/~cs61a/" target="_blank" rel="noopener">CS 61A ↗</a>
+      </div>
+
+      <div class="ants-controls">
+        <div class="ants-control-row">
+          <span class="wg-control-label">Difficulty</span>
+          <div class="wg-seg">
+            <button type="button" data-ants-diff="test" aria-pressed="false">Test</button>
+            <button type="button" data-ants-diff="easy" aria-pressed="false">Easy</button>
+            <button type="button" data-ants-diff="normal" aria-pressed="true">Normal</button>
+            <button type="button" data-ants-diff="hard" aria-pressed="false">Hard</button>
+            <button type="button" data-ants-diff="extra-hard" aria-pressed="false">Extra Hard</button>
+          </div>
+          <button id="ants-water" type="button" class="wg-toggle" aria-pressed="false">💧 Water layout</button>
+        </div>
+      </div>
+
+      <div class="ants-types" id="ants-types"></div>
+
+      <div class="game-modal-body ants-body">
+        <div class="game-modal-loading" id="ants-loading">Booting Python in your browser…</div>
+        <div class="ants-grid" id="ants-grid" hidden></div>
+      </div>
+
+      <div class="wg-status ants-status" id="ants-status" hidden></div>
+
+      <footer class="game-modal-foot">
+        <button id="ants-pause" type="button" class="wg-toggle">⏸ Pause</button>
+        <button id="ants-restart" type="button" class="game-modal-restart">New game</button>
+      </footer>
+      <p class="game-modal-credit">
+        Click an <strong>ant card</strong> to select, then click a <strong>tunnel tile</strong> to deploy. Bees enter from the hive (right) and march toward the home base (left). All <code>ants.py</code> classes — <code>Ant</code>, <code>Bee</code>, <code>GameState</code>, <code>QueenAnt</code>, etc. — are running as actual Python via <a href="https://pyodide.org" target="_blank" rel="noopener">Pyodide</a> (WebAssembly).
+      </p>
     </div>
   </div>
 
   <script src="app.js" defer></script>
   <script src="games/dist/game2048.js" defer></script>
   <script src="games/dist/worldgen.js" defer></script>
+  <script src="games/dist/ants.js" defer></script>
 </body>
 </html>
