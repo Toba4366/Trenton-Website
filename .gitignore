@@ -3,6 +3,8 @@
 # Source PDFs that shouldn't be served (we render diploma → image; paper lives on its own GitHub repo)
 docs/diploma.pdf
 docs/182_Final Paper.pdf
+docs/Trenton Eugene O'Bannon_Personal Statement (2).pdf
+docs/Trenton Eugene O'Bannon_Academic Statement (1).pdf
 
 # Cloned game source — we ship only the compiled jars from games/dist/
 games/2048/
