@@ -160,3 +160,53 @@
     }
   }
 })();
+
+// Timeline year marker — updates as user scrolls through the wall.
+// The marker itself is `position: sticky` (CSS); JS just swaps the year
+// text to whichever research piece is closest to the marker's vertical
+// center on the viewport.
+(() => {
+  const yearEl = document.getElementById("timeline-year");
+  if (!yearEl) return;
+  const pieces = Array.from(document.querySelectorAll(".research-piece[data-year]"));
+  if (pieces.length === 0) return;
+  const marker = document.querySelector(".timeline-marker");
+
+  let raf = null;
+  function update() {
+    raf = null;
+    const halfMarker = (marker?.offsetHeight || 56) / 2;
+    const markerY = window.innerHeight * 0.38 + halfMarker;
+    let active = pieces[0];
+    let bestScore = -Infinity;
+    for (const p of pieces) {
+      const rect = p.getBoundingClientRect();
+      if (rect.bottom < 0 || rect.top > window.innerHeight) continue;
+      const center = rect.top + rect.height / 2;
+      const score = -Math.abs(center - markerY);
+      if (score > bestScore) {
+        bestScore = score;
+        active = p;
+      }
+    }
+    const target = active.dataset.year;
+    if (yearEl.textContent !== target) {
+      yearEl.textContent = target;
+      if (marker) {
+        marker.classList.add("tick");
+        setTimeout(() => marker.classList.remove("tick"), 260);
+      }
+    }
+  }
+
+  function schedule() {
+    if (!raf) raf = requestAnimationFrame(update);
+  }
+  window.addEventListener("scroll", schedule, { passive: true });
+  window.addEventListener("resize", schedule);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", update);
+  } else {
+    update();
+  }
+})();
