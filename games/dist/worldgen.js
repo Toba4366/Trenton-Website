@@ -11,8 +11,9 @@
 
 (() => {
   const W = 55, H = 55;
-  const JAR_VERSION = "1";
+  const JAR_VERSION = "2";
   const JAR_URL = `/app/games/dist/worldgen.jar?v=${JAR_VERSION}`;
+  const MAX_SEED_RETRIES = 5;
   const CHEERPJ_LOADER = "https://cjrtnc.leaningtech.com/3.0/cj3loader.js";
 
   let cheerpReady = null;
@@ -53,14 +54,32 @@
     return cheerpReady;
   }
 
+  function randomSeed() {
+    return String(Math.floor(Math.random() * 9_000_000_000) + 1_000_000_000);
+  }
+
   // ── World generation ────────────────────────────────────────────────
   async function generateWorld(seed) {
     await ensureRuntime();
-    currentSeed = seed;
-    seedEl.textContent = seed;
-
     const engine = await new EngineClass();
-    const world = await engine.interactWithInputString(`n${seed}s`);
+
+    // Some seeds make the connectivity loops bail (we capped them in the patched
+    // Engine.java); silently retry with a fresh seed if that happens.
+    let world = null;
+    let usedSeed = seed;
+    for (let attempt = 0; attempt < MAX_SEED_RETRIES; attempt++) {
+      try {
+        world = await engine.interactWithInputString(`n${usedSeed}s`);
+        break;
+      } catch (e) {
+        console.warn("[worldgen] seed " + usedSeed + " failed to converge, retrying", e);
+        if (attempt === MAX_SEED_RETRIES - 1) throw e;
+        usedSeed = randomSeed();
+      }
+    }
+    currentSeed = usedSeed;
+    seedEl.textContent = usedSeed;
+
     const worldStr = await TETileClass.toString(world);
 
     // Parse string into 2D char array. First line = top row.
@@ -297,8 +316,7 @@
     canvas.hidden = true;
 
     try {
-      const seed = Math.floor(Math.random() * 9_000_000_000) + 1_000_000_000;
-      await generateWorld(String(seed));
+      await generateWorld(randomSeed());
       loadingEl.hidden = true;
       canvas.hidden = false;
     } catch (err) {
@@ -325,8 +343,7 @@
       loadingEl.hidden = false;
       loadingEl.textContent = "Generating new world…";
       canvas.hidden = true;
-      const seed = Math.floor(Math.random() * 9_000_000_000) + 1_000_000_000;
-      await generateWorld(String(seed));
+      await generateWorld(randomSeed());
       loadingEl.hidden = true;
       canvas.hidden = false;
     } catch (err) {
