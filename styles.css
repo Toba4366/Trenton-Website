@@ -946,12 +946,15 @@ body.lightbox-open { overflow: hidden; }
 /* ============== POSTERS ============== */
 .poster-wall {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 1.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 2rem;
+  align-items: start;  /* polaroids hang from the top, heights can vary */
+  margin-top: 2.5rem;
 }
-/* Polaroid-style frame: white border, photo on top, handwritten label below */
+/* Polaroid-style frame: white border, photo on top, handwritten label below.
+   No outer aspect-ratio — let each frame match its media's true shape so
+   nothing gets cropped (photos are 4:5, the badge video is 9:16). */
 .poster {
-  aspect-ratio: 3 / 4;
   background: #fff;
   border-radius: var(--rad-sm);
   border: 1.5px solid var(--ink);
@@ -959,7 +962,7 @@ body.lightbox-open { overflow: hidden; }
   transform: rotate(var(--rot, 0deg));
   transition: transform .35s cubic-bezier(.2,.8,.2,1);
   box-shadow: 0 14px 30px -18px #15132060;
-  padding: 10px 10px 36px;
+  padding: 12px 12px 40px;
   margin: 0;
   overflow: hidden;
   display: flex;
@@ -980,13 +983,15 @@ body.lightbox-open { overflow: hidden; }
   z-index: 2;
 }
 .poster-media {
-  flex: 1;
   width: 100%;
   background: var(--bg-2);
   border-radius: 4px;
   overflow: hidden;
   position: relative;
-  min-height: 0;
+  /* Default aspect for photos (matches the SROP 4:5 phone shots).
+     Video frame overrides this below to 9:16 so the badge cam is
+     full-bleed without side-cropping. */
+  aspect-ratio: 4 / 5;
 }
 .poster-media img,
 .poster-media video {
@@ -997,7 +1002,10 @@ body.lightbox-open { overflow: hidden; }
   -webkit-user-drag: none;
 }
 .poster-media img { cursor: zoom-in; }
-.poster-media-video { background: #000; }
+.poster-media-video {
+  background: #000;
+  aspect-ratio: 9 / 16;
+}
 .poster-media-video video { object-fit: cover; }
 .poster figcaption {
   position: absolute;
