@@ -9,7 +9,9 @@
 (() => {
   const SIZE = 4;
   const TILE2_PROBABILITY = 0.9;
-  const JAR_URL = "/app/games/dist/game2048.jar";
+  // Bump JAR_VERSION whenever game2048.jar is rebuilt to bust browser caches.
+  const JAR_VERSION = "2";
+  const JAR_URL = `/app/games/dist/game2048.jar?v=${JAR_VERSION}`;
   const CHEERPJ_LOADER = "https://cjrtnc.leaningtech.com/3.0/cj3loader.js";
   const BEST_KEY = "trenton-2048-best";
 
