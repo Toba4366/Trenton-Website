@@ -191,7 +191,10 @@
           <div class="card-foot">SROP · OSU Graduate School</div>
         </article>
 
-        <article class="card tilt reveal" style="--tilt: 2deg;">
+        <article class="card card-with-media tilt reveal" style="--tilt: 2deg;">
+          <div class="card-media">
+            <img src="docs/posters/opp-zones-2024.png" alt="Opportunity Zones in Michigan 2024 research poster" loading="lazy" />
+          </div>
           <div class="card-tag">Causal Inference · R · Stata</div>
           <h3>Opportunity Zones in Michigan</h3>
           <p>
@@ -565,17 +568,6 @@
         <button class="game-modal-close" id="wg-close" aria-label="Close">×</button>
       </header>
 
-      <div class="wg-howto">
-        <div class="wg-howto-row">
-          <strong>Move</strong>
-          <span><kbd>↑</kbd><kbd>↓</kbd><kbd>←</kbd><kbd>→</kbd> / <kbd>WASD</kbd> / <kbd>HJKL</kbd> · swipe on touch · <kbd>Esc</kbd> to close</span>
-        </div>
-        <div class="wg-howto-row">
-          <strong>Goal</strong>
-          <span>You're <span class="wg-legend wg-legend-avatar"></span>. Eat every <span class="wg-legend wg-legend-apple"></span> to win. In Chase / Survive: don't get caught.</span>
-        </div>
-      </div>
-
       <div class="wg-controls">
         <div class="wg-control-row">
           <span class="wg-control-label">Mode</span>
@@ -599,6 +591,20 @@
           <button id="wg-hard" type="button" class="wg-toggle" aria-pressed="false">Hard mode (chaser eats apples)</button>
         </div>
       </div>
+
+      <details class="wg-howto-details">
+        <summary>How to play</summary>
+        <div class="wg-howto">
+          <div class="wg-howto-row">
+            <strong>Move</strong>
+            <span><kbd>↑</kbd><kbd>↓</kbd><kbd>←</kbd><kbd>→</kbd> / <kbd>WASD</kbd> / <kbd>HJKL</kbd> · swipe on touch · <kbd>Esc</kbd> to close</span>
+          </div>
+          <div class="wg-howto-row">
+            <strong>Goal</strong>
+            <span>You're <span class="wg-legend wg-legend-avatar"></span>. Eat every <span class="wg-legend wg-legend-apple"></span> to win. In Chase / Survive: don't get caught.</span>
+          </div>
+        </div>
+      </details>
 
       <div class="game-modal-body wg-body">
         <div class="game-modal-loading" id="wg-loading">Booting Java in your browser…</div>

@@ -1018,6 +1018,29 @@ body.game-open { overflow: hidden; }
   color: var(--muted);
 }
 
+.wg-howto-details {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+}
+.wg-howto-details summary {
+  cursor: pointer;
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  background: var(--bg-2);
+  border: 1px dashed var(--line);
+  border-radius: 999px;
+  color: var(--ink-soft);
+  font-size: 0.74rem;
+  letter-spacing: 0.04em;
+  transition: color .15s ease, background .15s ease;
+}
+.wg-howto-details summary:hover { color: var(--ink); }
+.wg-howto-details summary::-webkit-details-marker { display: none; }
+.wg-howto-details[open] summary {
+  color: var(--ink);
+  background: var(--bg);
+}
+.wg-howto-details .wg-howto { margin-top: 0.5rem; }
 .wg-howto {
   display: grid;
   gap: 0.35rem;

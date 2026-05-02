@@ -316,7 +316,7 @@
   function sizeCanvas() {
     if (!canvas) return;
     const wrapper = canvas.parentElement;
-    const verticalReserve = 440; // header + howto + controls + footer + credit + padding
+    const verticalReserve = 380; // header + controls + collapsed-howto + footer + credit + padding
     const maxFromHeight = Math.max(240, window.innerHeight - verticalReserve);
     const available = Math.min(wrapper.clientWidth, maxFromHeight, 720);
     const dpr = window.devicePixelRatio || 1;
