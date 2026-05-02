@@ -342,9 +342,14 @@
   function sizeCanvas() {
     if (!canvas) return;
     const wrapper = canvas.parentElement;
-    const verticalReserve = 380; // header + controls + collapsed-howto + footer + credit + padding
-    const maxFromHeight = Math.max(240, window.innerHeight - verticalReserve);
-    const available = Math.min(wrapper.clientWidth, maxFromHeight, 720);
+    // Adapt to both width AND height. Reserve scales with viewport so that
+    // on a 4K monitor the canvas takes the lion's share, and on a phone we
+    // never overflow the modal panel. No artificial pixel cap — the panel
+    // max-width already constrains us.
+    const vh = window.innerHeight;
+    const verticalReserve = Math.min(380, Math.max(240, vh * 0.34));
+    const maxFromHeight = Math.max(220, vh - verticalReserve);
+    const available = Math.min(wrapper.clientWidth, maxFromHeight);
     const dpr = window.devicePixelRatio || 1;
     tileSize = Math.max(8, Math.floor(available / W));
     const pxW = tileSize * W;

@@ -135,7 +135,13 @@
     const moves = [];
     const arrivals = new Map();  // "c,r" → count of old tiles arriving here
     for (const reg of registry) {
+      if (!reg.javaTile) {
+        // Stale entry whose Java tile reference was dropped — clean up DOM.
+        if (reg.element && reg.element.parentNode) reg.element.remove();
+        continue;
+      }
       const next = await reg.javaTile.next();
+      if (!next) continue;
       const newCol = await next.col();
       const newRow = await next.row();
       const newValue = await next.value();
@@ -171,12 +177,15 @@
         }
       } else {
         // Tile slid (or didn't move). Re-bind to current Java tile object.
-        // (Tile didn't change identity, but rebinding is safe.)
         const javaTile = await model.tile(m.newCol, m.newRow);
+        if (!javaTile) {
+          // No tile at the destination (shouldn't happen, but be safe).
+          if (m.reg.element && m.reg.element.parentNode) m.reg.element.remove();
+          continue;
+        }
         m.reg.col = m.newCol;
         m.reg.row = m.newRow;
         m.reg.javaTile = javaTile;
-        // Value should match newValue; defensive guard if not
         if (m.reg.value !== m.newValue) {
           m.reg.value = m.newValue;
           m.reg.element.className = `g2048-tile v${m.newValue}`;
