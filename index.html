@@ -153,7 +153,10 @@
           </div>
         </article>
 
-        <article class="card tilt reveal" style="--tilt: 1.5deg;">
+        <article class="card card-with-media tilt reveal" style="--tilt: 1.5deg;">
+          <div class="card-media">
+            <img src="docs/posters/ect-symmetry.png" alt="ECT Approximate Symmetry research poster" loading="lazy" />
+          </div>
           <div class="card-tag">Research · Topology · Python</div>
           <h3>Quantifying Approximate Symmetry with the ECT</h3>
           <p>
@@ -169,7 +172,10 @@
           <div class="card-foot">SROP · Michigan State</div>
         </article>
 
-        <article class="card tilt reveal" style="--tilt: -1deg;">
+        <article class="card card-with-media tilt reveal" style="--tilt: -1deg;">
+          <div class="card-media">
+            <img src="docs/posters/swan-retinal.png" alt="SWAN retinal vessel U-Net research poster" loading="lazy" />
+          </div>
           <div class="card-tag">Computer Vision · U-Net · NIH</div>
           <h3>Retinal Vessel Segmentation (SWAN)</h3>
           <p>
@@ -539,15 +545,45 @@
         <div class="game-modal-meta">
           <span><span class="game-meta-label">Seed</span><strong id="wg-seed">—</strong></span>
           <span><span class="game-meta-label">Apples</span><strong><span id="wg-coins">0</span>/<span id="wg-total-coins">0</span></strong></span>
+          <span><span class="game-meta-label">Steps</span><strong id="wg-steps">0</strong></span>
+          <span><span class="game-meta-label">Threats</span><strong id="wg-chasers-info">—</strong></span>
         </div>
         <button class="game-modal-close" id="wg-close" aria-label="Close">×</button>
       </header>
 
       <div class="wg-howto">
-        <strong>How to play.</strong>
-        Move the <span class="wg-legend wg-legend-avatar"></span> avatar with <kbd>↑</kbd> <kbd>↓</kbd> <kbd>←</kbd> <kbd>→</kbd> /
-        <kbd>WASD</kbd> / <kbd>HJKL</kbd> (or swipe). Eat every gold apple <span class="wg-legend wg-legend-apple"></span> to win.
-        <kbd>Esc</kbd> or click outside to close. <kbd>New world</kbd> regenerates with a fresh seed.
+        <div class="wg-howto-row">
+          <strong>Move</strong>
+          <span><kbd>↑</kbd><kbd>↓</kbd><kbd>←</kbd><kbd>→</kbd> / <kbd>WASD</kbd> / <kbd>HJKL</kbd> · swipe on touch · <kbd>Esc</kbd> to close</span>
+        </div>
+        <div class="wg-howto-row">
+          <strong>Goal</strong>
+          <span>You're <span class="wg-legend wg-legend-avatar"></span>. Eat every <span class="wg-legend wg-legend-apple"></span> to win. In Chase / Survive: don't get caught.</span>
+        </div>
+      </div>
+
+      <div class="wg-controls">
+        <div class="wg-control-row">
+          <span class="wg-control-label">Mode</span>
+          <div class="wg-seg">
+            <button type="button" data-wg-mode="free"    aria-pressed="true">Free</button>
+            <button type="button" data-wg-mode="chase"   aria-pressed="false">Chase</button>
+            <button type="button" data-wg-mode="survive" aria-pressed="false">Survive</button>
+          </div>
+        </div>
+        <div class="wg-control-row" id="wg-algo-row" hidden>
+          <span class="wg-control-label">Algorithm</span>
+          <div class="wg-seg wg-seg-algo">
+            <button type="button" data-wg-algo="greedy" aria-pressed="false"><span class="wg-chaser-chip wg-chaser-greedy"></span>Greedy</button>
+            <button type="button" data-wg-algo="dfs"    aria-pressed="false"><span class="wg-chaser-chip wg-chaser-dfs"></span>DFS</button>
+            <button type="button" data-wg-algo="bfs"    aria-pressed="true"><span class="wg-chaser-chip wg-chaser-bfs"></span>BFS</button>
+            <button type="button" data-wg-algo="astar"  aria-pressed="false"><span class="wg-chaser-chip wg-chaser-astar"></span>A*</button>
+          </div>
+        </div>
+        <div class="wg-control-row" id="wg-hard-row" hidden>
+          <span class="wg-control-label">Difficulty</span>
+          <button id="wg-hard" type="button" class="wg-toggle" aria-pressed="false">Hard mode (chaser eats apples)</button>
+        </div>
       </div>
 
       <div class="game-modal-body wg-body">
@@ -561,7 +597,7 @@
         <button class="wg-music" id="wg-music-toggle" type="button" aria-pressed="true">♪ Music: on</button>
         <button class="game-modal-restart" id="wg-restart" type="button">New world</button>
       </footer>
-      <p class="game-modal-credit">Your <strong>Java</strong> Engine — rooms, hallways, apple placement — runs in your browser via <a href="https://cheerpj.com" target="_blank" rel="noopener">CheerpJ</a>. The avatar is JS-side; the algorithm is yours. Music: <em>bulletsong.wav</em> by Trenton (the file in your repo).</p>
+      <p class="game-modal-credit">Your <strong>Java</strong> Engine — rooms, hallways, apple placement — runs in your browser via <a href="https://cheerpj.com" target="_blank" rel="noopener">CheerpJ</a>. The avatar, chaser shapes, and four pathfinding algorithms (Greedy / DFS / BFS / A*) are JS-side. Music: <em>bulletsong.wav</em>.</p>
     </div>
   </div>
 
