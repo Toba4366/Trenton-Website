@@ -63,7 +63,11 @@
       if (typeof cheerpjInit === "undefined") {
         await loadScript(CHEERPJ_LOADER);
       }
-      await cheerpjInit({ status: "none" });
+      // Share cheerpjInit across game scripts (it errors on second call).
+      if (!window.__cheerpjInitPromise) {
+        window.__cheerpjInitPromise = cheerpjInit({ status: "none" });
+      }
+      await window.__cheerpjInitPromise;
       lib = await cheerpjRunLibrary(JAR_URL);
       EngineClass = await lib.byow.Core.Engine;
       TETileClass = await lib.byow.TileEngine.TETile;

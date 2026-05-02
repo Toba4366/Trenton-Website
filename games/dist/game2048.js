@@ -55,7 +55,12 @@
       if (typeof cheerpjInit === "undefined") {
         await loadScript(CHEERPJ_LOADER);
       }
-      await cheerpjInit({ status: "none" });
+      // Share the cheerpjInit promise across all CheerpJ-using game scripts
+      // (CheerpJ throws "Already initialized" if init is called twice).
+      if (!window.__cheerpjInitPromise) {
+        window.__cheerpjInitPromise = cheerpjInit({ status: "none" });
+      }
+      await window.__cheerpjInitPromise;
       lib = await cheerpjRunLibrary(JAR_URL);
       ModelClass = await lib.game2048.Model;
       TileClass = await lib.game2048.Tile;
@@ -116,6 +121,10 @@
   }
 
   // ── Animated tilt ───────────────────────────────────────────────────
+  // Strategy: use `.next()` chains for the visual SLIDE only; after the
+  // animation, rebuild the DOM from Java's authoritative board state. This
+  // prevents JS-side state from drifting if the underlying tilt algorithm
+  // produces unusual `.next()` patterns (e.g., recursive tiltRow paths).
   async function animatedTilt(direction) {
     if (registry.length === 0) return;
 
@@ -124,89 +133,59 @@
     await model.tilt(sideValue);
     const after = await snapshot();
 
-    // Board didn't change — no animation, no spawn
     if (before === after) {
       await updateMeta();
       return;
     }
 
-    // Resolve each displayed tile's destination via its Java .next()
-    // (set by Board.move/merge during the tilt above)
-    const moves = [];
-    const arrivals = new Map();  // "c,r" → count of old tiles arriving here
+    // Animate slides (best-effort). Mark destinations where value changes
+    // for the bloom pass.
+    const bloomKeys = new Set();
     for (const reg of registry) {
-      if (!reg.javaTile) {
-        // Stale entry whose Java tile reference was dropped — clean up DOM.
-        if (reg.element && reg.element.parentNode) reg.element.remove();
-        continue;
-      }
-      const next = await reg.javaTile.next();
-      if (!next) continue;
-      const newCol = await next.col();
-      const newRow = await next.row();
-      const newValue = await next.value();
-      moves.push({ reg, newCol, newRow, newValue });
-      const key = `${newCol},${newRow}`;
-      arrivals.set(key, (arrivals.get(key) || 0) + 1);
+      if (!reg.javaTile) continue;
+      try {
+        const next = await reg.javaTile.next();
+        if (!next) continue;
+        const newCol = await next.col();
+        const newRow = await next.row();
+        const newValue = await next.value();
+        reg.element.style.transform = transformFor(newCol, newRow);
+        if (newValue !== reg.value) bloomKeys.add(`${newCol},${newRow}`);
+      } catch (_) {}
     }
 
-    // Slide: update transforms; CSS transitions handle the motion
-    for (const m of moves) {
-      m.reg.element.style.transform = transformFor(m.newCol, m.newRow);
-    }
-
-    // Wait for slides to finish before swapping merged tiles
     await sleep(SLIDE_MS + 10);
 
-    // Resolve merges + collect surviving registry
-    const newRegistry = [];
-    const handledMergeKeys = new Set();
-    for (const m of moves) {
-      const key = `${m.newCol},${m.newRow}`;
-      if (arrivals.get(key) > 1) {
-        // Merge: remove this old tile element
-        m.reg.element.remove();
-        if (!handledMergeKeys.has(key)) {
-          handledMergeKeys.add(key);
-          // Create the new merged tile with bloom
-          const javaTile = await model.tile(m.newCol, m.newRow);
-          const id = ++tileSeq;
-          const el = createTileElement(id, m.newCol, m.newRow, m.newValue, true);
-          boardEl.appendChild(el);
-          newRegistry.push({ id, col: m.newCol, row: m.newRow, value: m.newValue, javaTile, element: el });
-        }
-      } else {
-        // Tile slid (or didn't move). Re-bind to current Java tile object.
-        const javaTile = await model.tile(m.newCol, m.newRow);
-        if (!javaTile) {
-          // No tile at the destination (shouldn't happen, but be safe).
-          if (m.reg.element && m.reg.element.parentNode) m.reg.element.remove();
-          continue;
-        }
-        m.reg.col = m.newCol;
-        m.reg.row = m.newRow;
-        m.reg.javaTile = javaTile;
-        if (m.reg.value !== m.newValue) {
-          m.reg.value = m.newValue;
-          m.reg.element.className = `g2048-tile v${m.newValue}`;
-          m.reg.element.querySelector(".g2048-tile-inner").textContent = m.newValue;
-        }
-        newRegistry.push(m.reg);
-      }
-    }
-    registry = newRegistry;
-
-    // Spawn one random tile with bloom
+    // Spawn one random tile (Java side); bloom its position too.
     const spawn = await spawnRandomTile();
-    if (spawn) {
-      const javaTile = await model.tile(spawn.col, spawn.row);
-      const id = ++tileSeq;
-      const el = createTileElement(id, spawn.col, spawn.row, spawn.value, true);
-      boardEl.appendChild(el);
-      registry.push({ id, col: spawn.col, row: spawn.row, value: spawn.value, javaTile, element: el });
-    }
+    if (spawn) bloomKeys.add(`${spawn.col},${spawn.row}`);
+
+    // Rebuild DOM authoritatively from Java state — this is the trust line.
+    await rebuildFromBoard(bloomKeys);
 
     await updateMeta();
+  }
+
+  async function rebuildFromBoard(bloomKeys) {
+    // Tear down old tile elements (background cells stay).
+    for (const reg of registry) {
+      if (reg.element && reg.element.parentNode) reg.element.remove();
+    }
+    registry = [];
+
+    // Walk current Java board and create fresh elements per tile.
+    for (let r = 0; r < SIZE; r++) {
+      for (let c = 0; c < SIZE; c++) {
+        const t = await model.tile(c, r);
+        if (t === null) continue;
+        const value = await t.value();
+        const id = ++tileSeq;
+        const shouldBloom = bloomKeys ? bloomKeys.has(`${c},${r}`) : false;
+        const el = createTileElement(id, c, r, value, shouldBloom);
+        boardEl.appendChild(el);
+        registry.push({ id, col: c, row: r, value, javaTile: t, element: el });
+      }
+    }
   }
 
   // ── Rendering primitives ────────────────────────────────────────────
