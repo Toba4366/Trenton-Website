@@ -1210,54 +1210,68 @@ body.game-open { overflow: hidden; }
 }
 
 .ants-types {
+  position: sticky;
+  top: -1px;
+  z-index: 6;
   display: flex;
-  gap: 0.5rem;
+  gap: 0.6rem;
   overflow-x: auto;
-  padding: 0.4rem 0.1rem;
+  overflow-y: hidden;
+  padding: 0.7rem 0.4rem 0.85rem;
+  margin: 0 -0.5rem;
+  background: var(--bg);
+  border-top: 1px dashed var(--line);
+  border-bottom: 1.5px solid var(--ink);
   scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+  flex-wrap: nowrap;
+  align-items: stretch;
 }
 .ant-card {
   flex: 0 0 auto;
-  min-width: 84px;
+  min-width: 110px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.2rem;
+  gap: 0.3rem;
   background: var(--bg-2);
   border: 1.5px solid var(--ink);
-  border-radius: 10px;
-  padding: 0.4rem 0.5rem;
+  border-radius: 12px;
+  padding: 0.6rem 0.7rem 0.55rem;
   cursor: pointer;
   font-family: var(--sans);
-  transition: transform .15s ease, background .15s ease, border-color .15s ease, opacity .15s ease;
+  transition: transform .15s ease, background .15s ease, border-color .15s ease, opacity .15s ease, box-shadow .15s ease;
 }
-.ant-card:hover { transform: translateY(-2px); }
+.ant-card:hover { transform: translateY(-3px); border-color: var(--coral); }
 .ant-card.selected {
   background: var(--gold);
   border-color: var(--coral);
-  box-shadow: 0 0 0 2px var(--coral);
+  box-shadow: 0 0 0 3px var(--coral);
+  transform: translateY(-3px);
 }
 .ant-card.disabled {
-  opacity: 0.45;
+  opacity: 0.4;
   cursor: not-allowed;
 }
+.ant-card.disabled:hover { transform: none; border-color: var(--ink); }
 .ant-card img {
-  width: 36px;
-  height: 36px;
+  width: 52px;
+  height: 52px;
   image-rendering: pixelated;
   image-rendering: crisp-edges;
 }
 .ant-card-label {
-  font-size: 0.72rem;
-  font-weight: 600;
+  font-size: 0.8rem;
+  font-weight: 700;
   color: var(--ink);
   text-align: center;
-  line-height: 1.1;
+  line-height: 1.15;
 }
 .ant-card-cost {
   font-family: var(--mono);
-  font-size: 0.7rem;
+  font-size: 0.78rem;
   color: var(--ink-soft);
+  font-weight: 600;
 }
 .ant-card.selected .ant-card-label,
 .ant-card.selected .ant-card-cost { color: var(--ink); }
@@ -1330,6 +1344,48 @@ body.game-open { overflow: hidden; }
   width: 50%;
   z-index: 4;
   filter: drop-shadow(0 1px 2px #00000060);
+}
+
+/* HP badges */
+.ants-hp {
+  position: absolute;
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+  padding: 1px 5px;
+  border-radius: 6px;
+  pointer-events: none;
+  white-space: nowrap;
+  line-height: 1.1;
+  box-shadow: 0 1px 2px #00000060;
+}
+.ants-hp-ant {
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(245, 237, 214, 0.95);
+  color: var(--ink);
+  border: 1px solid #00000040;
+  z-index: 5;
+}
+.ants-hp-bee {
+  top: 2px;
+  right: 2px;
+  background: rgba(230, 57, 70, 0.95);
+  color: white;
+  z-index: 5;
+  font-size: 0.58rem;
+  padding: 0 3px;
+}
+.ants-hp-low { background: var(--coral); color: white; }
+
+/* QueenAnt distinguishing glow — first queen only (handled in JS via .is-queen) */
+.ants-ant.is-queen {
+  filter: drop-shadow(0 0 4px var(--gold)) drop-shadow(0 0 8px #fdb51580);
+}
+.ants-ant.is-queen + .ants-hp-ant {
+  background: var(--gold);
+  border-color: var(--ink);
 }
 
 @media (max-width: 720px) {

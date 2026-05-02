@@ -440,10 +440,12 @@ def make_game(difficulty, water):
     if (p.ant) {
       const ant = document.createElement("img");
       ant.className = "ants-sprite ants-ant";
+      if (p.ant.type === "QueenAnt") ant.classList.add("is-queen");
       ant.src = antSpriteUrl(p.ant);
       ant.alt = p.ant.name;
       ant.title = `${p.ant.name} · HP ${p.ant.health}`;
       cell.appendChild(ant);
+      cell.appendChild(makeHpBadge(p.ant.health, "ant"));
       if (p.ant.contained) {
         const contained = document.createElement("img");
         contained.className = "ants-sprite ants-ant-contained";
@@ -463,7 +465,24 @@ def make_game(difficulty, water):
       bee.style.transform = `translate(${(i % 3) * 8 - 8}px, ${(i % 2) * 6 - 3}px)`;
       cell.appendChild(bee);
     }
+    if (p.bees.length > 0) {
+      const totalHp = p.bees.reduce((s, b) => s + b.health, 0);
+      cell.appendChild(makeHpBadge(`${p.bees.length}× ❤${totalHp}`, "bee"));
+    }
     return cell;
+  }
+
+  function makeHpBadge(value, kind) {
+    const badge = document.createElement("span");
+    const cls = kind === "bee" ? "ants-hp-bee" : "ants-hp-ant";
+    badge.className = `ants-hp ${cls}`;
+    if (typeof value === "number") {
+      badge.textContent = `❤${value}`;
+      if (value <= 1) badge.classList.add("ants-hp-low");
+    } else {
+      badge.textContent = value;
+    }
+    return badge;
   }
 
   function rowSeed(s) { let h = 0; for (const c of s) h = (h * 31 + c.charCodeAt(0)) >>> 0; return h; }
