@@ -21,6 +21,23 @@
 
   <div class="grain" aria-hidden="true"></div>
 
+  <!-- Site-wide stacked depth layers (option 6) — three parallax planes
+       behind everything: blobs (slowest), dot grid (mid), glyphs (fastest) -->
+  <div class="bg-depth" aria-hidden="true">
+    <div class="bg-depth-blobs"></div>
+    <div class="bg-depth-dots"></div>
+    <div class="bg-depth-glyphs">
+      <span style="--x:8%;  --y:12%; --r:-6deg;">∑</span>
+      <span style="--x:78%; --y:18%; --r:5deg;">∂</span>
+      <span style="--x:22%; --y:42%; --r:-3deg;">π</span>
+      <span style="--x:88%; --y:56%; --r:7deg;">λ</span>
+      <span style="--x:14%; --y:72%; --r:4deg;">∇</span>
+      <span style="--x:62%; --y:84%; --r:-8deg;">≈</span>
+      <span style="--x:42%; --y:28%; --r:3deg;">{ }</span>
+      <span style="--x:72%; --y:38%; --r:-4deg;">⊗</span>
+    </div>
+  </div>
+
   <header class="nav">
     <a href="#top" class="nav-mark">TOB<span class="dot">.</span></a>
     <nav class="nav-links" aria-label="Primary">
@@ -143,14 +160,9 @@
         <p class="section-sub">Writing + code I send with grad-school and predoc applications.</p>
       </div>
 
-      <div class="samples-wall">
-        <div class="samples-rail" aria-hidden="true">
-          <div class="samples-marker">
-            <span id="samples-num">1</span>
-          </div>
-        </div>
-        <div class="samples-pieces">
+      <div class="samples-pieces">
           <article class="sample-piece reveal" data-num="1" style="--rot: -1.2deg;">
+            <span class="sample-numeral" aria-hidden="true">01</span>
             <div class="sample-frame">
               <img src="docs/posters/cs182-fsm.png" alt="CS 182 In-Context Learning of FSMs poster" loading="lazy" />
             </div>
@@ -176,6 +188,7 @@
           </article>
 
           <article class="sample-piece sample-piece-flip reveal" data-num="2" style="--rot: 1deg;">
+            <span class="sample-numeral" aria-hidden="true">02</span>
             <div class="sample-frame">
               <img src="docs/coding-samples/mit-correlation-heatmap.png" alt="Correlation heatmap from the MIT predoc challenge" loading="lazy" />
             </div>
@@ -212,7 +225,6 @@
               </div>
             </div>
           </article>
-        </div>
       </div>
     </section>
 

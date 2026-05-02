@@ -211,53 +211,45 @@
   }
 })();
 
-// Coding-samples timeline: numbered marker (1, 2) updates per piece + image parallax
+// Coding-samples + page-wide parallax:
+//   1. Giant 01/02 numerals behind each sample piece drift opposite to scroll
+//   2. Image inside each sample-frame drifts subtly (existing effect)
+//   3. Site-wide stacked depth layers (blobs / dots / glyphs) translate at
+//      different speeds for a deeper background.
 (() => {
-  const numEl = document.getElementById("samples-num");
-  const pieces = Array.from(document.querySelectorAll(".sample-piece[data-num]"));
-  if (!numEl || pieces.length === 0) return;
-  const marker = document.querySelector(".samples-marker");
+  const pieces = Array.from(document.querySelectorAll(".sample-piece"));
+  const blobs  = document.querySelector(".bg-depth-blobs");
+  const dots   = document.querySelector(".bg-depth-dots");
+  const glyphs = document.querySelector(".bg-depth-glyphs");
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduced) return;
 
   let raf = null;
   function update() {
     raf = null;
     const vh = window.innerHeight;
-    const markerY = vh * 0.38 + (marker?.offsetHeight || 56) / 2;
+    const viewCenter = vh / 2;
 
-    // Active piece — closest to marker
-    let active = pieces[0];
-    let bestScore = -Infinity;
+    // Sample-piece numerals + image drift
     for (const p of pieces) {
       const rect = p.getBoundingClientRect();
-      if (rect.bottom < 0 || rect.top > vh) continue;
+      if (rect.bottom < -300 || rect.top > vh + 300) continue;
       const center = rect.top + rect.height / 2;
-      const score = -Math.abs(center - markerY);
-      if (score > bestScore) { bestScore = score; active = p; }
-    }
-    const target = active.dataset.num;
-    if (numEl.textContent !== target) {
-      numEl.textContent = target;
-      if (marker) {
-        marker.classList.add("tick");
-        setTimeout(() => marker.classList.remove("tick"), 260);
-      }
+      const offset = (center - viewCenter) / vh; // -1..+1ish
+
+      // Giant numeral: drift opposite to scroll direction (deeper than text)
+      p.style.setProperty("--numeral-y", (-offset * 80) + "px");
+
+      // Image inside frame: smaller drift, same direction
+      const img = p.querySelector(".sample-frame img");
+      if (img) img.style.setProperty("--parallax-y", (-offset * 30) + "px");
     }
 
-    // Image parallax — translateY per piece based on viewport position
-    if (!reduced) {
-      const viewCenter = vh / 2;
-      for (const p of pieces) {
-        const img = p.querySelector(".sample-frame img");
-        if (!img) continue;
-        const rect = p.getBoundingClientRect();
-        if (rect.bottom < -200 || rect.top > vh + 200) continue;
-        const center = rect.top + rect.height / 2;
-        const offset = (center - viewCenter) / vh; // -1..+1ish
-        const dy = -offset * 36; // shift up to ±36px
-        img.style.setProperty("--parallax-y", dy + "px");
-      }
-    }
+    // Site-wide stacked depth layers — different speeds = "depth"
+    const y = window.scrollY;
+    if (blobs)  blobs.style.transform  = `translateY(${(-y * 0.18).toFixed(1)}px)`;
+    if (dots)   dots.style.transform   = `translateY(${(-y * 0.45).toFixed(1)}px)`;
+    if (glyphs) glyphs.style.transform = `translateY(${(-y * 0.72).toFixed(1)}px)`;
   }
 
   function schedule() { if (!raf) raf = requestAnimationFrame(update); }
