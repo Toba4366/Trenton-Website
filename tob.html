@@ -235,10 +235,39 @@
       gap: 0.25rem;
     }
 
-    /* Letterboxd accent */
-    .card--letterboxd:hover { border-color: rgba(0,209,69,0.35); }
-    .card--letterboxd .card-link { color: #00d145; }
-    .card--letterboxd:hover { box-shadow: 0 16px 40px -12px rgba(0,0,0,0.5), 0 0 0 1px rgba(0,209,69,0.2); }
+    /* Letterboxd embed */
+    .lb-wrap {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--rad);
+      overflow: hidden;
+    }
+    .lb-wrap iframe {
+      display: block;
+      width: 100%;
+      height: 800px;
+      border: none;
+      background: transparent;
+      border-radius: 0;
+    }
+    .lb-fetch-wrap {
+      padding: 0.5rem;
+      border-radius: var(--rad);
+      background: var(--surface);
+      border: 1px solid var(--line);
+    }
+    .lb-footer {
+      padding: 0.75rem 1rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      display: flex;
+      justify-content: flex-end;
+    }
+    .lb-footer a {
+      color: #00d145;
+      text-decoration: none;
+    }
+    .lb-footer a:hover { text-decoration: underline; }
 
     /* Beli accent */
     .card--beli:hover { border-color: rgba(255,130,50,0.35); }
@@ -309,11 +338,10 @@
       </div>
     </section>
 
-    <!-- Beli + Letterboxd -->
+    <!-- Beli -->
     <section>
-      <p class="section-label">Find me elsewhere</p>
+      <p class="section-label">Food</p>
       <div class="cards-grid">
-
         <a class="profile-card card--beli"
            href="https://beliapp.co/app/awesomest1616"
            target="_blank" rel="noopener">
@@ -326,20 +354,31 @@
           </span>
           <span class="card-link">View profile ↗</span>
         </a>
-
-        <a class="profile-card card--letterboxd"
-           href="https://letterboxd.com/awesomest1616/"
-           target="_blank" rel="noopener">
-          <span class="card-icon">🎬</span>
-          <span class="card-platform">Letterboxd · Film Diary</span>
-          <span class="card-name">awesomest1616</span>
-          <span class="card-desc">
-            Films watched, films loved, opinions held firmly. The diary doesn't lie.
-          </span>
-          <span class="card-link">View diary ↗</span>
-        </a>
-
       </div>
+    </section>
+
+    <!-- Letterboxd diary embed -->
+    <section>
+      <p class="section-label">Film Diary · Letterboxd</p>
+      <div class="lb-fetch-wrap">
+        <div id="letterboxd-embed-wrapper-tc" style="min-height:200px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:0.9rem;">Loading diary…</div>
+        <div class="lb-footer">
+          <a href="https://letterboxd.com/awesomest1616/" target="_blank" rel="noopener">Open on Letterboxd ↗</a>
+        </div>
+      </div>
+      <script>
+        fetch('https://lb-embed-content.bokonon.dev?username=awesomest1616')
+          .then(r => r.text())
+          .then(html => {
+            const el = document.getElementById('letterboxd-embed-wrapper-tc');
+            el.style.cssText = '';
+            el.innerHTML = html;
+          })
+          .catch(() => {
+            document.getElementById('letterboxd-embed-wrapper-tc').innerHTML =
+              '<p style="padding:1.5rem;color:var(--muted)">Couldn\'t load diary — <a href="https://letterboxd.com/awesomest1616/" target="_blank" rel="noopener" style="color:#00d145">view it on Letterboxd ↗</a></p>';
+          });
+      </script>
     </section>
 
   </main>
