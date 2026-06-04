@@ -421,14 +421,15 @@ main { position: relative; z-index: 2; }
 
 /* scroll nudge */
 .scroll-nudge {
-  position: absolute;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: flex-start;
+  justify-content: center;
+  align-self: center;
   width: 26px; height: 42px;
   border: 1.5px solid var(--ink-soft);
   border-radius: 14px;
-  display: block;
+  margin-left: 0.4rem;
+  flex-shrink: 0;
 }
 .scroll-nudge span {
   display: block;
