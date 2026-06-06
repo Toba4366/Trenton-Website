@@ -175,12 +175,23 @@
       text-underline-offset: 4px;
     }
 
-    /* Written piece — offset left, then right */
+    /* 3-column editorial spread — margin cols bleed into page gutters */
+    .film-spread {
+      display: grid;
+      grid-template-columns: 160px 1fr 160px;
+      column-gap: 2.5rem;
+      align-items: start;
+      margin: 0 calc(-1 * var(--pad)); /* bleed into main's padding */
+    }
+    .film-margin-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Written piece — center column of the film-spread grid */
     .zine-article {
-      max-width: 880px;
-      margin-left: 1.5rem;
       margin-bottom: 3.5rem;
-      overflow: hidden;
     }
     .zine-article h2 {
       font-family: var(--comic); font-size: clamp(2rem, 5vw, 3rem);
@@ -293,7 +304,8 @@
     .foot a:hover { color: var(--white); }
 
     @media (max-width: 600px) {
-      .zine-article { margin-left: 0; }
+      .film-spread { display: block; margin: 0; }
+      .film-margin-col { display: none; }
       .food-wrap { justify-content: flex-start; transform: none; }
       .ig-account:first-child,
       .ig-account:last-child { transform: none; margin-top: 0; }
@@ -373,117 +385,126 @@
         </p>
       </div>
 
-      <!-- WRITTEN PIECE + POSTERS integrated -->
-      <div class="zine-article">
-        <h2>on favorites.</h2>
+      <!-- WRITTEN PIECE — 3-col editorial grid with margin posters -->
+      <div class="film-spread">
 
-        <div class="poster-card" style="float:right; margin: 0 0 1.5rem 2rem; transform: rotate(-4deg);">
-          <div class="poster-frame" style="transform: rotate(-4deg);">
-            <img src="docs/Movie%20Posters/Forrest%20Gump.jpg" alt="Forrest Gump" />
-            <span class="poster-badge">🥇 #1 GOAT</span>
-          </div>
-          <div class="poster-meta">
-            <span class="poster-title">Forrest Gump</span>
-            <span class="poster-year">1994</span>
-            <span class="poster-note">undisputed. not debatable.</span>
+        <!-- LEFT MARGIN — Get Out sits alongside the pull-quote -->
+        <div class="film-margin-col" style="padding-top: 13rem;">
+          <div class="poster-card" style="transform: rotate(6deg);">
+            <div class="poster-frame" style="transform: rotate(6deg);">
+              <img src="docs/Movie%20Posters/Get%20Out.jpg" alt="Get Out" />
+              <span class="poster-badge">#2</span>
+            </div>
+            <div class="poster-meta">
+              <span class="poster-title">Get Out</span>
+              <span class="poster-year">2017</span>
+            </div>
           </div>
         </div>
 
-        <p>
-          My top 3 favorite movies are <strong>Forrest Gump</strong>, <strong>Get Out</strong>, and <strong>The Interview</strong>.
-          Forrest Gump is by far my favorite movie, though. I remember growing up it was my older brothers' favorite
-          and at the time I didn't understand why — but I just enjoyed watching it with him because he seemed to like it.
-          But after he moved away I would watch it and think of him, knowing it was his favorite, and realized this movie
-          has <mark>EVERYTHING</mark>: comedy, action, drama, love, and amazing acting.
-        </p>
+        <!-- CENTER TEXT COLUMN -->
+        <div class="zine-article">
+          <h2>on favorites.</h2>
 
-        <div class="poster-card" style="float:left; margin: 0 2rem 1.5rem 0; transform: rotate(6deg);">
-          <div class="poster-frame" style="transform: rotate(6deg);">
-            <img src="docs/Movie%20Posters/Get%20Out.jpg" alt="Get Out" />
-            <span class="poster-badge">#2</span>
+          <div class="poster-card" style="float:right; margin: 0 0 1.5rem 2rem; transform: rotate(-4deg);">
+            <div class="poster-frame" style="transform: rotate(-4deg);">
+              <img src="docs/Movie%20Posters/Forrest%20Gump.jpg" alt="Forrest Gump" />
+              <span class="poster-badge">🥇 #1 GOAT</span>
+            </div>
+            <div class="poster-meta">
+              <span class="poster-title">Forrest Gump</span>
+              <span class="poster-year">1994</span>
+              <span class="poster-note">undisputed. not debatable.</span>
+            </div>
           </div>
-          <div class="poster-meta">
-            <span class="poster-title">Get Out</span>
-            <span class="poster-year">2017</span>
+
+          <p>
+            My top 3 favorite movies are <strong>Forrest Gump</strong>, <strong>Get Out</strong>, and <strong>The Interview</strong>.
+            Forrest Gump is by far my favorite movie, though. I remember growing up it was my older brothers' favorite
+            and at the time I didn't understand why — but I just enjoyed watching it with him because he seemed to like it.
+            But after he moved away I would watch it and think of him, knowing it was his favorite, and realized this movie
+            has <mark>EVERYTHING</mark>: comedy, action, drama, love, and amazing acting.
+          </p>
+
+          <span class="pull-quote">"fish are the shrimp of the sea"</span>
+          <p style="font-size:0.85rem; color:var(--muted); font-style:italic; margin-left:2.75rem; margin-top:-1rem;">#RIP Bubba</p>
+
+          <div class="poster-card" style="float:left; margin: 0 2rem 1.5rem 0; transform: rotate(5deg);">
+            <div class="poster-frame" style="transform: rotate(5deg);">
+              <img src="docs/Movie%20Posters/SpongeBob.jpg" alt="The SpongeBob Movie" />
+              <span class="poster-badge" style="color:#fff;">#4 *</span>
+            </div>
+            <div class="poster-meta">
+              <span class="poster-title">The SpongeBob Movie</span>
+              <span class="poster-year">2004</span>
+              <span class="poster-note">* subject to change lol</span>
+            </div>
+          </div>
+
+          <div class="poster-card" style="float:right; margin: 0 0 1.5rem 2rem; transform: rotate(-5deg);">
+            <div class="poster-frame" style="transform: rotate(-5deg);">
+              <img src="docs/Movie%20Posters/Lilo%20%26%20Stitch.jpg" alt="Lilo &amp; Stitch" />
+              <span class="poster-badge">fav Disney</span>
+            </div>
+            <div class="poster-meta">
+              <span class="poster-title">Lilo &amp; Stitch</span>
+              <span class="poster-year">2002</span>
+            </div>
+          </div>
+
+          <p>
+            On Letterboxd you have to pick your top 4, which is kinda hard. I love to rank things but that <strong>4 spot</strong>
+            for me is highly contested. I currently (June 6, 2026) have the original SpongeBob movie at the 4th spot
+            but it is subject to change.
+          </p>
+
+          <div class="poster-card" style="float:left; margin: 0 2rem 1.5rem 0; transform: rotate(3deg);">
+            <div class="poster-frame" style="transform: rotate(3deg);">
+              <img src="docs/Movie%20Posters/Bolt.jpg" alt="Bolt" />
+              <span class="poster-badge">fav DCOM</span>
+            </div>
+            <div class="poster-meta">
+              <span class="poster-title">Bolt</span>
+              <span class="poster-year">2008</span>
+              <span class="poster-note">Disney Channel Original</span>
+            </div>
+          </div>
+
+          <div class="poster-card" style="float:right; margin: 0 0 1.5rem 2rem; transform: rotate(-6deg);">
+            <div class="poster-frame" style="transform: rotate(-6deg);">
+              <img src="docs/Movie%20Posters/CatInTheHat.jpg" alt="The Cat in the Hat" />
+              <span class="poster-badge">dark horse</span>
+            </div>
+            <div class="poster-meta">
+              <span class="poster-title">The Cat in the Hat</span>
+              <span class="poster-year">2003</span>
+              <span class="poster-note">live action. yeah i said it.</span>
+            </div>
+          </div>
+
+          <p>
+            For example my favorite Disney movie is <strong>Lilo and Stitch</strong>,
+            but my favorite Disney Channel Original movie is <strong>Bolt</strong>. I could also put the live action
+            <strong>Cat in the Hat</strong> in that spot — and the list goes on.
+          </p>
+
+          <div style="clear:both;"></div>
+        </div>
+
+        <!-- RIGHT MARGIN — The Interview sits lower, near the SpongeBob paragraph -->
+        <div class="film-margin-col" style="padding-top: 20rem;">
+          <div class="poster-card" style="transform: rotate(-2deg);">
+            <div class="poster-frame" style="transform: rotate(-2deg);">
+              <img src="docs/Movie%20Posters/The%20Interview.jpg" alt="The Interview" />
+              <span class="poster-badge">#3</span>
+            </div>
+            <div class="poster-meta">
+              <span class="poster-title">The Interview</span>
+              <span class="poster-year">2014</span>
+            </div>
           </div>
         </div>
 
-        <div class="poster-card" style="float:right; margin: 0 0 1.5rem 2rem; transform: rotate(-2deg);">
-          <div class="poster-frame" style="transform: rotate(-2deg);">
-            <img src="docs/Movie%20Posters/The%20Interview.jpg" alt="The Interview" />
-            <span class="poster-badge">#3</span>
-          </div>
-          <div class="poster-meta">
-            <span class="poster-title">The Interview</span>
-            <span class="poster-year">2014</span>
-          </div>
-        </div>
-
-        <span class="pull-quote">"fish are the shrimp of the sea"</span>
-        <p style="font-size:0.85rem; color:var(--muted); font-style:italic; margin-left:2.75rem; margin-top:-1rem;">#RIP Bubba</p>
-
-        <div style="clear:both;"></div>
-
-        <div class="poster-card" style="float:left; margin: 0 2rem 1.5rem 0; transform: rotate(5deg);">
-          <div class="poster-frame" style="transform: rotate(5deg);">
-            <img src="docs/Movie%20Posters/SpongeBob.jpg" alt="The SpongeBob Movie" />
-            <span class="poster-badge" style="color:#fff;">#4 *</span>
-          </div>
-          <div class="poster-meta">
-            <span class="poster-title">The SpongeBob Movie</span>
-            <span class="poster-year">2004</span>
-            <span class="poster-note">* subject to change lol</span>
-          </div>
-        </div>
-
-        <div class="poster-card" style="float:right; margin: 0 0 1.5rem 2rem; transform: rotate(-5deg);">
-          <div class="poster-frame" style="transform: rotate(-5deg);">
-            <img src="docs/Movie%20Posters/Lilo%20%26%20Stitch.jpg" alt="Lilo &amp; Stitch" />
-            <span class="poster-badge">fav Disney</span>
-          </div>
-          <div class="poster-meta">
-            <span class="poster-title">Lilo &amp; Stitch</span>
-            <span class="poster-year">2002</span>
-          </div>
-        </div>
-
-        <p>
-          On Letterboxd you have to pick your top 4, which is kinda hard. I love to rank things but that <strong>4 spot</strong>
-          for me is highly contested. I currently (June 6, 2026) have the original SpongeBob movie at the 4th spot
-          but it is subject to change.
-        </p>
-
-        <div class="poster-card" style="float:left; margin: 0 2rem 1.5rem 0; transform: rotate(3deg);">
-          <div class="poster-frame" style="transform: rotate(3deg);">
-            <img src="docs/Movie%20Posters/Bolt.jpg" alt="Bolt" />
-            <span class="poster-badge">fav DCOM</span>
-          </div>
-          <div class="poster-meta">
-            <span class="poster-title">Bolt</span>
-            <span class="poster-year">2008</span>
-            <span class="poster-note">Disney Channel Original</span>
-          </div>
-        </div>
-
-        <div class="poster-card" style="float:right; margin: 0 0 1.5rem 2rem; transform: rotate(-6deg);">
-          <div class="poster-frame" style="transform: rotate(-6deg);">
-            <img src="docs/Movie%20Posters/CatInTheHat.jpg" alt="The Cat in the Hat" />
-            <span class="poster-badge">dark horse</span>
-          </div>
-          <div class="poster-meta">
-            <span class="poster-title">The Cat in the Hat</span>
-            <span class="poster-year">2003</span>
-            <span class="poster-note">live action. yeah i said it.</span>
-          </div>
-        </div>
-
-        <p>
-          For example my favorite Disney movie is <strong>Lilo and Stitch</strong>,
-          but my favorite Disney Channel Original movie is <strong>Bolt</strong>. I could also put the live action
-          <strong>Cat in the Hat</strong> in that spot — and the list goes on.
-        </p>
-
-        <div style="clear:both;"></div>
       </div>
 
       <!-- LETTERBOXD DIARY -->
