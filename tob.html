@@ -177,9 +177,10 @@
 
     /* Written piece — offset left, then right */
     .zine-article {
-      max-width: 620px;
-      margin-left: 3rem;
+      max-width: 880px;
+      margin-left: 1.5rem;
       margin-bottom: 3.5rem;
+      overflow: hidden;
     }
     .zine-article h2 {
       font-family: var(--comic); font-size: clamp(2rem, 5vw, 3rem);
@@ -372,31 +373,11 @@
         </p>
       </div>
 
-      <!-- WRITTEN PIECE -->
+      <!-- WRITTEN PIECE + POSTERS integrated -->
       <div class="zine-article">
         <h2>on favorites.</h2>
-        <p>
-          My top 3 favorite movies are <strong>Forrest Gump</strong>, <strong>Get Out</strong>, and <strong>The Interview</strong>.
-          Forrest Gump is by far my favorite movie, though. I remember growing up it was my older brothers' favorite
-          and at the time I didn't understand why — but I just enjoyed watching it with him because he seemed to like it.
-          But after he moved away I would watch it and think of him, knowing it was his favorite, and realized this movie
-          has <mark>EVERYTHING</mark>: comedy, action, drama, love, and amazing acting.
-        </p>
-        <span class="pull-quote">"I do think shrimp are the fruit of the sea. #RIP Bubba."</span>
-        <p>
-          On Letterboxd you have to pick your top 4, which is kinda hard. I love to rank things but that <strong>4 spot</strong>
-          for me is highly contested. I currently (June 6, 2026) have the original SpongeBob movie at the 4th spot
-          but it is subject to change. For example my favorite Disney movie is <strong>Lilo and Stitch</strong>,
-          but my favorite Disney Channel Original movie is <strong>Bolt</strong>. I could also put the live action
-          <strong>Cat in the Hat</strong> in that spot — and the list goes on.
-        </p>
-      </div>
 
-      <!-- POSTER SCATTER -->
-      <span class="posters-header">the lineup ↓</span>
-      <div class="poster-scatter">
-
-        <div class="poster-card" style="transform: rotate(-4deg); margin-top: 0rem;">
+        <div class="poster-card" style="float:right; margin: 0 0 1.5rem 2rem; transform: rotate(-4deg);">
           <div class="poster-frame" style="transform: rotate(-4deg);">
             <img src="docs/Movie%20Posters/Forrest%20Gump.jpg" alt="Forrest Gump" />
             <span class="poster-badge">🥇 #1 GOAT</span>
@@ -408,7 +389,15 @@
           </div>
         </div>
 
-        <div class="poster-card" style="transform: rotate(6deg); margin-top: 2.5rem;">
+        <p>
+          My top 3 favorite movies are <strong>Forrest Gump</strong>, <strong>Get Out</strong>, and <strong>The Interview</strong>.
+          Forrest Gump is by far my favorite movie, though. I remember growing up it was my older brothers' favorite
+          and at the time I didn't understand why — but I just enjoyed watching it with him because he seemed to like it.
+          But after he moved away I would watch it and think of him, knowing it was his favorite, and realized this movie
+          has <mark>EVERYTHING</mark>: comedy, action, drama, love, and amazing acting.
+        </p>
+
+        <div class="poster-card" style="float:left; margin: 0 2rem 1.5rem 0; transform: rotate(6deg);">
           <div class="poster-frame" style="transform: rotate(6deg);">
             <img src="docs/Movie%20Posters/Get%20Out.jpg" alt="Get Out" />
             <span class="poster-badge">#2</span>
@@ -419,7 +408,7 @@
           </div>
         </div>
 
-        <div class="poster-card" style="transform: rotate(-2deg); margin-top: 0.5rem;">
+        <div class="poster-card" style="float:right; margin: 0 0 1.5rem 2rem; transform: rotate(-2deg);">
           <div class="poster-frame" style="transform: rotate(-2deg);">
             <img src="docs/Movie%20Posters/The%20Interview.jpg" alt="The Interview" />
             <span class="poster-badge">#3</span>
@@ -430,7 +419,12 @@
           </div>
         </div>
 
-        <div class="poster-card" style="transform: rotate(5deg); margin-top: 3rem;">
+        <span class="pull-quote">"fish are the shrimp of the sea"</span>
+        <p style="font-size:0.85rem; color:var(--muted); font-style:italic; margin-left:2.75rem; margin-top:-1rem;">#RIP Bubba</p>
+
+        <div style="clear:both;"></div>
+
+        <div class="poster-card" style="float:left; margin: 0 2rem 1.5rem 0; transform: rotate(5deg);">
           <div class="poster-frame" style="transform: rotate(5deg);">
             <img src="docs/Movie%20Posters/SpongeBob.jpg" alt="The SpongeBob Movie" />
             <span class="poster-badge" style="color:#fff;">#4 *</span>
@@ -442,13 +436,9 @@
           </div>
         </div>
 
-        <!-- Lilo & Stitch — no poster file, CSS fallback -->
-        <div class="poster-card" style="transform: rotate(-5deg); margin-top: 1rem;">
-          <div class="poster-frame" style="transform: rotate(-5deg); background: linear-gradient(155deg, #005580, #00a0cc);">
-            <div class="poster-frame-css">
-              <span class="p-emoji">👽</span>
-              <span class="p-title">Lilo &amp; Stitch</span>
-            </div>
+        <div class="poster-card" style="float:right; margin: 0 0 1.5rem 2rem; transform: rotate(-5deg);">
+          <div class="poster-frame" style="transform: rotate(-5deg);">
+            <img src="docs/Movie%20Posters/Lilo%20%26%20Stitch.jpg" alt="Lilo &amp; Stitch" />
             <span class="poster-badge">fav Disney</span>
           </div>
           <div class="poster-meta">
@@ -457,7 +447,13 @@
           </div>
         </div>
 
-        <div class="poster-card" style="transform: rotate(3deg); margin-top: 2rem;">
+        <p>
+          On Letterboxd you have to pick your top 4, which is kinda hard. I love to rank things but that <strong>4 spot</strong>
+          for me is highly contested. I currently (June 6, 2026) have the original SpongeBob movie at the 4th spot
+          but it is subject to change.
+        </p>
+
+        <div class="poster-card" style="float:left; margin: 0 2rem 1.5rem 0; transform: rotate(3deg);">
           <div class="poster-frame" style="transform: rotate(3deg);">
             <img src="docs/Movie%20Posters/Bolt.jpg" alt="Bolt" />
             <span class="poster-badge">fav DCOM</span>
@@ -469,7 +465,7 @@
           </div>
         </div>
 
-        <div class="poster-card" style="transform: rotate(-6deg); margin-top: 0.25rem;">
+        <div class="poster-card" style="float:right; margin: 0 0 1.5rem 2rem; transform: rotate(-6deg);">
           <div class="poster-frame" style="transform: rotate(-6deg);">
             <img src="docs/Movie%20Posters/CatInTheHat.jpg" alt="The Cat in the Hat" />
             <span class="poster-badge">dark horse</span>
@@ -481,6 +477,13 @@
           </div>
         </div>
 
+        <p>
+          For example my favorite Disney movie is <strong>Lilo and Stitch</strong>,
+          but my favorite Disney Channel Original movie is <strong>Bolt</strong>. I could also put the live action
+          <strong>Cat in the Hat</strong> in that spot — and the list goes on.
+        </p>
+
+        <div style="clear:both;"></div>
       </div>
 
       <!-- LETTERBOXD DIARY -->
