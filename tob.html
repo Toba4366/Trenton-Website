@@ -4,35 +4,33 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex, nofollow" />
-  <title>TOB. — the person</title>
+  <title>TOB. — dark corner</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,800;1,9..144,400;1,9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,800;1,9..144,400;1,9..144,700&family=Inter:wght@400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg:        #080c14;
-      --bg-2:      #0e1320;
-      --surface:   #111827;
-      --surface-2: #1a2236;
-      --surface-3: #202d45;
-      --royal:     #1e4dab;
-      --blue:      #4a8cff;
-      --blue-dim:  rgba(74,140,255,0.15);
-      --white:     #e8edf8;
-      --muted:     #6877a0;
-      --line:      rgba(232,237,248,0.07);
-      --coral:     #f25c54;
+      --bg:      #080c14;
+      --surface: #111827;
+      --surf2:   #1a2236;
+      --blue:    #4a8cff;
+      --white:   #e8edf8;
+      --muted:   #6877a0;
+      --line:    rgba(232,237,248,0.07);
+      --coral:   #f25c54;
+      --gold:    #fdb515;
+      --green:   #00d145;
 
-      --display: "Fraunces", ui-serif, Georgia, "Times New Roman", serif;
+      --display: "Fraunces", ui-serif, Georgia, serif;
       --sans:    "Inter", ui-sans-serif, system-ui, Arial, sans-serif;
-      --rad:     14px;
+      --mono:    "Space Mono", ui-monospace, monospace;
+      --rad:     12px;
       --max:     1040px;
       --pad:     clamp(1.25rem, 5vw, 3.5rem);
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-
     body {
       background: var(--bg);
       color: var(--white);
@@ -40,311 +38,297 @@
       font-size: 17px;
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
-      text-rendering: optimizeLegibility;
-      min-height: 100vh;
       overflow-x: hidden;
+      min-height: 100vh;
     }
 
-    /* subtle noise grain */
+    /* grain */
     body::before {
       content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.04;
+      position: fixed; inset: 0;
+      pointer-events: none; z-index: 0; opacity: 0.04;
       background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.8 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
     }
 
-    /* ambient glow behind hero */
-    .glow-bg {
-      position: fixed;
-      top: -20vh;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 900px;
-      height: 500px;
-      background: radial-gradient(ellipse at center, rgba(30,77,171,0.22) 0%, transparent 70%);
-      pointer-events: none;
-      z-index: 0;
+    /* ── WARNING BANNER ── */
+    .warning-banner {
+      background: var(--coral);
+      color: #fff;
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-align: center;
+      padding: 0.65rem var(--pad);
+      position: relative;
+      z-index: 20;
     }
 
     /* ── NAV ── */
     .nav {
-      position: sticky;
-      top: 0;
-      z-index: 10;
+      position: sticky; top: 0; z-index: 10;
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
-      background: rgba(8,12,20,0.8);
+      background: rgba(8,12,20,0.85);
       border-bottom: 1px solid var(--line);
     }
     .nav-inner {
-      max-width: var(--max);
-      margin: 0 auto;
+      max-width: var(--max); margin: 0 auto;
       padding: 1rem var(--pad);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      display: flex; align-items: center; justify-content: space-between;
     }
     .nav-mark {
-      font-family: var(--display);
-      font-weight: 800;
-      font-size: 1.25rem;
-      letter-spacing: -0.02em;
-      color: var(--white);
-      text-decoration: none;
+      font-family: var(--display); font-weight: 800; font-size: 1.25rem;
+      letter-spacing: -0.02em; color: var(--white); text-decoration: none;
     }
     .nav-mark .dot { color: var(--coral); }
-    .nav-tag {
-      font-size: 0.75rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
+    .nav-tag { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); }
 
-    /* ── HERO ── */
-    .hero {
-      position: relative;
-      z-index: 1;
-      max-width: var(--max);
-      margin: 0 auto;
-      padding: clamp(4rem, 10vw, 7rem) var(--pad) clamp(3rem, 6vw, 5rem);
+    /* ── INTRO ── */
+    .intro {
+      position: relative; z-index: 1;
+      max-width: var(--max); margin: 0 auto;
+      padding: clamp(3.5rem, 9vw, 6rem) var(--pad) clamp(2rem, 5vw, 3rem);
     }
-    .hero-eyebrow {
-      font-size: 0.72rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--blue);
-      margin-bottom: 1.25rem;
+    .intro-stamp {
+      display: inline-block;
+      font-family: var(--mono); font-size: 0.68rem;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--coral); border: 1px solid currentColor;
+      padding: 0.2rem 0.55rem; border-radius: 4px;
+      margin-bottom: 1.75rem; transform: rotate(-1deg);
     }
-    .hero h1 {
+    .intro h1 {
       font-family: var(--display);
-      font-size: clamp(3.5rem, 9vw, 7rem);
-      font-weight: 800;
-      line-height: 0.95;
-      letter-spacing: -0.04em;
-      margin-bottom: 2rem;
+      font-size: clamp(2.8rem, 8vw, 6rem);
+      font-weight: 800; line-height: 1.0; letter-spacing: -0.04em;
+      margin-bottom: 1.5rem;
     }
-    .hero h1 em {
-      font-style: italic;
-      color: var(--blue);
-    }
-    .hero-lead {
-      max-width: 560px;
-      color: rgba(232,237,248,0.65);
-      font-size: 1.05rem;
-      line-height: 1.75;
-    }
-
-    /* ── DIVIDER ── */
-    .divider {
-      max-width: var(--max);
-      margin: 0 auto;
-      border: none;
-      border-top: 1px solid var(--line);
+    .intro h1 em { font-style: italic; color: var(--blue); }
+    .intro-sub {
+      font-family: var(--mono); font-size: 0.82rem;
+      color: var(--muted); line-height: 1.8; max-width: 420px;
     }
 
     /* ── MAIN ── */
     main {
-      position: relative;
-      z-index: 1;
-      max-width: var(--max);
-      margin: 0 auto;
-      padding: clamp(2.5rem, 6vw, 4rem) var(--pad) clamp(4rem, 8vw, 6rem);
-      display: flex;
-      flex-direction: column;
-      gap: clamp(3rem, 7vw, 5rem);
+      position: relative; z-index: 1;
+      max-width: var(--max); margin: 0 auto;
+      padding: clamp(2rem, 5vw, 3.5rem) var(--pad) clamp(4rem, 8vw, 6rem);
+      display: flex; flex-direction: column;
+      gap: clamp(4rem, 9vw, 6.5rem);
     }
 
-    .section-label {
-      font-size: 0.72rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--blue);
-      margin-bottom: 1.5rem;
+    /* ── ZINE SECTION LABEL ── */
+    .zine-label {
+      font-family: var(--mono); font-size: 0.68rem;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 1.5rem;
+      display: flex; align-items: center; gap: 0.75rem;
     }
+    .zine-label::after { content: ""; flex: 1; height: 1px; background: var(--line); }
 
     /* ── INSTAGRAM ── */
     .ig-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1.5rem;
-      align-items: start;
+      gap: 1.5rem; align-items: start;
     }
-    .ig-account {}
     .ig-account-label {
-      font-size: 0.7rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 0.75rem;
+      font-family: var(--mono); font-size: 0.68rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 0.75rem;
     }
-    /* The instagram embed ships with white bg by design — we lean into it
-       by presenting it as a "light card" inset on the dark page. */
     .ig-account blockquote.instagram-media {
       border-radius: var(--rad) !important;
-      box-shadow: 0 0 0 1px rgba(74,140,255,0.2), 0 24px 60px -16px rgba(0,0,0,0.6) !important;
+      box-shadow: 0 0 0 1px rgba(74,140,255,0.18), 0 20px 50px -14px rgba(0,0,0,0.7) !important;
     }
 
-    /* ── PROFILE CARDS ── */
-    .cards-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1rem;
-    }
+    /* ── BELI CARD ── */
     .profile-card {
-      background: var(--surface);
-      border: 1px solid var(--line);
-      border-radius: var(--rad);
-      padding: 1.75rem;
-      text-decoration: none;
-      color: inherit;
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-      transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+      background: var(--surface); border: 1px solid var(--line);
+      border-radius: var(--rad); padding: 1.75rem;
+      text-decoration: none; color: inherit;
+      display: flex; flex-direction: column; gap: 0.6rem;
+      max-width: 340px;
+      transition: background 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s;
     }
     .profile-card:hover {
-      background: var(--surface-2);
-      border-color: rgba(74,140,255,0.35);
-      transform: translateY(-3px);
-      box-shadow: 0 16px 40px -12px rgba(0,0,0,0.5), 0 0 0 1px rgba(74,140,255,0.2);
+      background: var(--surf2); transform: translateY(-3px);
     }
-    .card-icon {
-      font-size: 1.75rem;
-      line-height: 1;
-      margin-bottom: 0.25rem;
+    .card-icon { font-size: 1.75rem; line-height: 1; margin-bottom: 0.2rem; }
+    .card-platform { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+    .card-name { font-family: var(--display); font-size: 1.4rem; font-weight: 700; letter-spacing: -0.02em; color: var(--white); }
+    .card-desc { font-size: 0.88rem; color: rgba(232,237,248,0.5); line-height: 1.55; flex: 1; }
+    .card-link { margin-top: 0.5rem; font-size: 0.82rem; font-weight: 600; color: #ff8232; }
+    .card--beli:hover { border-color: rgba(255,130,50,0.35); box-shadow: 0 16px 40px -12px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,130,50,0.2); }
+
+    /* ── FILM SECTION ── */
+    .film-section { display: flex; flex-direction: column; gap: 3rem; }
+
+    /* rating disclaimer */
+    .rating-disclaimer {
+      background: linear-gradient(135deg, rgba(242,92,84,0.1), rgba(74,140,255,0.06));
+      border: 1px solid rgba(242,92,84,0.25);
+      border-radius: var(--rad); padding: 1.5rem 2rem;
     }
-    .card-platform {
-      font-size: 0.7rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-    .card-name {
-      font-family: var(--display);
-      font-size: 1.45rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
+    .rating-disclaimer p {
+      font-family: var(--display); font-style: italic;
+      font-size: clamp(1rem, 2.5vw, 1.2rem); line-height: 1.55;
       color: var(--white);
-      line-height: 1.1;
     }
-    .card-desc {
-      font-size: 0.9rem;
-      color: rgba(232,237,248,0.55);
-      line-height: 1.55;
-      flex: 1;
-    }
-    .card-link {
-      margin-top: 0.75rem;
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: var(--blue);
-      display: flex;
-      align-items: center;
-      gap: 0.25rem;
+    .rating-disclaimer em {
+      font-style: normal; font-weight: 700;
+      color: var(--coral);
+      text-decoration: underline; text-decoration-style: wavy;
+      text-underline-offset: 4px;
     }
 
-    /* Letterboxd embed */
-    .lb-wrap {
-      background: var(--surface);
-      border: 1px solid var(--line);
-      border-radius: var(--rad);
-      overflow: hidden;
+    /* written piece */
+    .zine-article { max-width: 700px; }
+    .zine-article h2 {
+      font-family: var(--display);
+      font-size: clamp(2rem, 5vw, 3.25rem);
+      font-weight: 800; letter-spacing: -0.03em; line-height: 1.05;
+      margin-bottom: 1.25rem;
     }
-    .lb-wrap iframe {
-      display: block;
-      width: 100%;
-      height: 800px;
-      border: none;
-      background: transparent;
-      border-radius: 0;
+    .zine-article p {
+      color: rgba(232,237,248,0.72); line-height: 1.85;
+      margin-bottom: 1.1rem;
     }
+    .zine-article p:last-child { margin-bottom: 0; }
+    .zine-article strong { color: var(--white); font-weight: 600; }
+    .zine-article mark {
+      background: rgba(253,181,21,0.2); color: var(--gold);
+      padding: 0 0.2em; border-radius: 3px; font-style: normal;
+    }
+    .pull-quote {
+      border-left: 3px solid var(--coral);
+      padding: 0.85rem 1.5rem; margin: 1.5rem 0;
+      font-family: var(--display); font-style: italic;
+      font-size: 1.2rem; color: var(--white); line-height: 1.5;
+    }
+
+    /* poster grid */
+    .posters-label {
+      font-family: var(--mono); font-size: 0.68rem;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 1.25rem;
+    }
+    .posters-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 1.25rem;
+    }
+    .poster-card { display: flex; flex-direction: column; gap: 0.55rem; }
+    .poster-frame {
+      aspect-ratio: 2/3; border-radius: 8px; overflow: hidden;
+      position: relative;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 8px 24px -8px rgba(0,0,0,0.7);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .poster-frame:hover {
+      transform: translateY(-5px) rotate(0deg) !important;
+      box-shadow: 0 18px 42px -8px rgba(0,0,0,0.85);
+    }
+    .poster-inner {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 0.75rem; text-align: center; gap: 0.4rem;
+    }
+    .p-emoji { font-size: 2.25rem; line-height: 1; }
+    .p-title {
+      font-family: var(--display); font-weight: 700;
+      font-size: 0.82rem; line-height: 1.2; color: #fff;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+    }
+    .poster-badge {
+      position: absolute; top: 0.45rem; right: 0.45rem;
+      background: rgba(0,0,0,0.72); backdrop-filter: blur(4px);
+      border-radius: 999px; padding: 0.18rem 0.45rem;
+      font-family: var(--mono); font-size: 0.6rem;
+      font-weight: 700; color: var(--gold); white-space: nowrap;
+    }
+    .poster-meta { display: flex; flex-direction: column; gap: 0.15rem; }
+    .poster-title { font-weight: 600; font-size: 0.82rem; color: var(--white); line-height: 1.2; }
+    .poster-year { font-family: var(--mono); font-size: 0.65rem; color: var(--muted); }
+    .poster-note { font-size: 0.68rem; color: var(--coral); font-style: italic; }
+
+    /* letterboxd embed */
     .lb-fetch-wrap {
-      padding: 0.5rem;
-      border-radius: var(--rad);
-      background: var(--surface);
-      border: 1px solid var(--line);
+      border-radius: var(--rad); background: var(--surface);
+      border: 1px solid var(--line); overflow: hidden;
+    }
+    .lb-diary-label {
+      padding: 0.85rem 1rem;
+      font-family: var(--mono); font-size: 0.68rem;
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
+      border-bottom: 1px solid var(--line);
     }
     .lb-footer {
-      padding: 0.75rem 1rem;
-      font-size: 0.8rem;
-      color: var(--muted);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 1rem;
+      padding: 0.75rem 1rem; font-size: 0.8rem; color: var(--muted);
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 1rem; border-top: 1px solid var(--line);
     }
-    .lb-footer a {
-      color: #00d145;
-      text-decoration: none;
-    }
+    .lb-footer a { color: var(--green); text-decoration: none; }
     .lb-footer a:hover { text-decoration: underline; }
-
-    /* Beli accent */
-    .card--beli:hover { border-color: rgba(255,130,50,0.35); }
-    .card--beli .card-link { color: #ff8232; }
-    .card--beli:hover { box-shadow: 0 16px 40px -12px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,130,50,0.2); }
 
     /* ── FOOTER ── */
     .foot {
-      position: relative;
-      z-index: 1;
-      max-width: var(--max);
-      margin: 0 auto;
-      padding: 2rem var(--pad);
-      border-top: 1px solid var(--line);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-      font-size: 0.83rem;
-      color: var(--muted);
+      position: relative; z-index: 1;
+      max-width: var(--max); margin: 0 auto;
+      padding: 2rem var(--pad); border-top: 1px solid var(--line);
+      display: flex; justify-content: space-between;
+      align-items: center; flex-wrap: wrap; gap: 0.75rem;
+      font-family: var(--mono); font-size: 0.78rem; color: var(--muted);
     }
-    .foot a {
-      color: var(--muted);
-      text-decoration: none;
-      transition: color 0.15s;
-    }
+    .foot a { color: var(--muted); text-decoration: none; transition: color 0.15s; }
     .foot a:hover { color: var(--white); }
 
-    /* ── RESPONSIVE ── */
-    @media (max-width: 540px) {
-      .cards-grid { grid-template-columns: 1fr; }
+    @media (max-width: 560px) {
+      .posters-grid { grid-template-columns: repeat(3, 1fr); }
+      .ig-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <div class="glow-bg" aria-hidden="true"></div>
+  <!-- WARNING BANNER -->
+  <div class="warning-banner" role="note">
+    ⚠️ &nbsp; Welcome to my own little dark corner of the internet. Viewer discretion advised. &nbsp; ⚠️
+  </div>
 
+  <!-- NAV -->
   <header class="nav">
     <div class="nav-inner">
       <a href="index.html" class="nav-mark">TOB<span class="dot">.</span></a>
-      <span class="nav-tag">the person</span>
+      <span class="nav-tag">// dark_corner.html</span>
     </div>
   </header>
 
-  <section class="hero">
-    <p class="hero-eyebrow">beyond the résumé</p>
-    <h1>the <em>person</em>.</h1>
-    <p class="hero-lead">
-      CS and data science by training — but also: perpetually in someone's
-      kitchen, tracking every restaurant worth remembering, and watching
-      films like it's a second major. This is the stuff that doesn't fit
-      on a CV.
+  <!-- INTRO -->
+  <section class="intro">
+    <div class="intro-stamp">est. 1616 · Liberty, MO</div>
+    <h1>
+      not your<br/>
+      <em>typical</em><br/>
+      portfolio page.
+    </h1>
+    <p class="intro-sub">
+      this is what i think about at 2am.<br/>
+      proceed at your own risk.
     </p>
   </section>
 
-  <hr class="divider" />
-
+  <!-- MAIN -->
   <main>
 
-    <!-- Instagram -->
+    <!-- 📸 INSTAGRAM -->
     <section>
-      <p class="section-label">Instagram</p>
+      <p class="zine-label">📸 &nbsp; instagram</p>
       <div class="ig-grid">
 
         <div class="ig-account">
@@ -361,55 +345,196 @@
       <script async src="//www.instagram.com/embed.js"></script>
     </section>
 
-    <!-- Beli -->
+    <!-- 🍽️ FOOD -->
     <section>
-      <p class="section-label">Food</p>
-      <div class="cards-grid">
-        <a class="profile-card card--beli"
-           href="https://beliapp.co/app/awesomest1616"
-           target="_blank" rel="noopener">
-          <span class="card-icon">🍽️</span>
-          <span class="card-platform">Beli · Food Tracker</span>
-          <span class="card-name">awesomest1616</span>
-          <span class="card-desc">
-            Every restaurant worth remembering, rated and ranked. If I ate there
-            and it mattered, it's on here.
-          </span>
-          <span class="card-link">View profile ↗</span>
-        </a>
-      </div>
+      <p class="zine-label">🍽️ &nbsp; food</p>
+      <a class="profile-card card--beli" href="https://beliapp.co/app/awesomest1616" target="_blank" rel="noopener">
+        <span class="card-icon">🍽️</span>
+        <span class="card-platform">Beli · Food Tracker</span>
+        <span class="card-name">awesomest1616</span>
+        <span class="card-desc">Every restaurant worth remembering, rated and ranked. If I ate there and it mattered, it's on here.</span>
+        <span class="card-link">View profile ↗</span>
+      </a>
     </section>
 
-    <!-- Letterboxd diary embed -->
-    <section>
-      <p class="section-label">Film Diary · Letterboxd</p>
-      <div class="lb-fetch-wrap">
-        <div id="letterboxd-embed-wrapper-tc" style="min-height:200px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:0.9rem;">Loading diary…</div>
-        <div class="lb-footer">
-          <span>embed via <a href="https://github.com/timciep/letterboxd-diary-embed" target="_blank" rel="noopener">Tim Cieplowski</a></span>
-          <a href="https://letterboxd.com/awesomest1616/" target="_blank" rel="noopener">Open on Letterboxd ↗</a>
+    <!-- 🎬 FILM -->
+    <section class="film-section">
+      <p class="zine-label">🎬 &nbsp; film</p>
+
+      <!-- THE DISCLAIMER — this goes first, loud -->
+      <div class="rating-disclaimer">
+        <p>
+          My Letterboxd ratings do not reflect how <em>GOOD</em> a movie is…
+          they reflect how much I <em>LIKE</em> a movie.
+          And those are two very <em>different</em> things.
+        </p>
+      </div>
+
+      <!-- THE WRITTEN PIECE -->
+      <div class="zine-article">
+        <h2>on favorites.</h2>
+        <p>
+          My top 3 favorite movies are <strong>Forrest Gump</strong>, <strong>Get Out</strong>, and <strong>The Interview</strong>.
+          Forrest Gump is by far my favorite movie, though. I remember growing up it was my older brothers' favorite
+          and at the time I didn't understand why — but I just enjoyed watching it with him because he seemed to like it.
+          But after he moved away I would watch it and think of him, knowing it was his favorite, and realized this movie
+          has <mark>EVERYTHING</mark>: comedy, action, drama, love, and amazing acting.
+        </p>
+        <div class="pull-quote">
+          "I do think shrimp are the fruit of the sea. #RIP Bubba."
+        </div>
+        <p>
+          On Letterboxd you have to pick your top 4, which is kinda hard. I love to rank things but that <strong>4 spot</strong> for me
+          is highly contested. I currently (June 6, 2026) have the original SpongeBob movie at the 4th spot
+          but it is subject to change. For example my favorite Disney movie is <strong>Lilo and Stitch</strong>,
+          but my favorite Disney Channel Original movie is <strong>Bolt</strong>. I could also put the live action
+          <strong>Cat in the Hat</strong> in that spot — and the list goes on.
+        </p>
+      </div>
+
+      <!-- MOVIE POSTERS -->
+      <div>
+        <p class="posters-label">the lineup</p>
+        <div class="posters-grid">
+
+          <div class="poster-card">
+            <div class="poster-frame" style="transform: rotate(-1.5deg); background: linear-gradient(155deg, #2d5a27 0%, #4a7c3f 50%, #1a3d14 100%);">
+              <div class="poster-inner">
+                <span class="p-emoji">🪶</span>
+                <span class="p-title">Forrest Gump</span>
+              </div>
+              <span class="poster-badge">🥇 #1 GOAT</span>
+            </div>
+            <div class="poster-meta">
+              <span class="poster-title">Forrest Gump</span>
+              <span class="poster-year">1994</span>
+              <span class="poster-note">undisputed. not debatable.</span>
+            </div>
+          </div>
+
+          <div class="poster-card">
+            <div class="poster-frame" style="transform: rotate(1.2deg); background: linear-gradient(155deg, #0a0000 0%, #6b0000 60%, #1a0000 100%);">
+              <div class="poster-inner">
+                <span class="p-emoji">👁️</span>
+                <span class="p-title">Get Out</span>
+              </div>
+              <span class="poster-badge">#2</span>
+            </div>
+            <div class="poster-meta">
+              <span class="poster-title">Get Out</span>
+              <span class="poster-year">2017</span>
+            </div>
+          </div>
+
+          <div class="poster-card">
+            <div class="poster-frame" style="transform: rotate(-0.8deg); background: linear-gradient(155deg, #1a2a0a 0%, #c94a00 70%, #7a2a00 100%);">
+              <div class="poster-inner">
+                <span class="p-emoji">🎤</span>
+                <span class="p-title">The Interview</span>
+              </div>
+              <span class="poster-badge">#3</span>
+            </div>
+            <div class="poster-meta">
+              <span class="poster-title">The Interview</span>
+              <span class="poster-year">2014</span>
+            </div>
+          </div>
+
+          <div class="poster-card">
+            <div class="poster-frame" style="transform: rotate(2.1deg); background: linear-gradient(155deg, #004488 0%, #0066cc 40%, #c8a800 100%);">
+              <div class="poster-inner">
+                <span class="p-emoji">🧽</span>
+                <span class="p-title">The SpongeBob Movie</span>
+              </div>
+              <span class="poster-badge" style="color:#fff;">#4 *</span>
+            </div>
+            <div class="poster-meta">
+              <span class="poster-title">The SpongeBob Movie</span>
+              <span class="poster-year">2004</span>
+              <span class="poster-note">* subject to change lol</span>
+            </div>
+          </div>
+
+          <div class="poster-card">
+            <div class="poster-frame" style="transform: rotate(-1.2deg); background: linear-gradient(155deg, #005580 0%, #00a0cc 50%, #007799 100%);">
+              <div class="poster-inner">
+                <span class="p-emoji">👽</span>
+                <span class="p-title">Lilo &amp; Stitch</span>
+              </div>
+              <span class="poster-badge">fav Disney</span>
+            </div>
+            <div class="poster-meta">
+              <span class="poster-title">Lilo &amp; Stitch</span>
+              <span class="poster-year">2002</span>
+            </div>
+          </div>
+
+          <div class="poster-card">
+            <div class="poster-frame" style="transform: rotate(0.7deg); background: linear-gradient(155deg, #0a0a1a 0%, #cc6600 60%, #aa4400 100%);">
+              <div class="poster-inner">
+                <span class="p-emoji">⚡</span>
+                <span class="p-title">Bolt</span>
+              </div>
+              <span class="poster-badge">fav DCOM</span>
+            </div>
+            <div class="poster-meta">
+              <span class="poster-title">Bolt</span>
+              <span class="poster-year">2008</span>
+              <span class="poster-note">Disney Channel Original</span>
+            </div>
+          </div>
+
+          <div class="poster-card">
+            <div class="poster-frame" style="transform: rotate(-2deg); background: linear-gradient(155deg, #8b0000 0%, #cc1111 40%, #f5f0e8 100%);">
+              <div class="poster-inner">
+                <span class="p-emoji">🎩</span>
+                <span class="p-title">The Cat in the Hat</span>
+              </div>
+              <span class="poster-badge">dark horse</span>
+            </div>
+            <div class="poster-meta">
+              <span class="poster-title">The Cat in the Hat</span>
+              <span class="poster-year">2003</span>
+              <span class="poster-note">live action. yeah i said it.</span>
+            </div>
+          </div>
+
         </div>
       </div>
-      <script>
-        fetch('https://lb-embed-content.bokonon.dev?username=awesomest1616')
-          .then(r => r.text())
-          .then(html => {
-            const el = document.getElementById('letterboxd-embed-wrapper-tc');
-            el.style.cssText = '';
-            el.innerHTML = html;
-          })
-          .catch(() => {
-            document.getElementById('letterboxd-embed-wrapper-tc').innerHTML =
-              '<p style="padding:1.5rem;color:var(--muted)">Couldn\'t load diary — <a href="https://letterboxd.com/awesomest1616/" target="_blank" rel="noopener" style="color:#00d145">view it on Letterboxd ↗</a></p>';
-          });
-      </script>
+
+      <!-- LETTERBOXD DIARY -->
+      <div>
+        <p class="posters-label">the diary</p>
+        <div class="lb-fetch-wrap">
+          <div class="lb-diary-label">recent watches — letterboxd.com/awesomest1616</div>
+          <div id="letterboxd-embed-wrapper-tc" style="min-height:200px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:0.88rem;padding:2rem;font-family:var(--mono);">loading diary…</div>
+          <div class="lb-footer">
+            <span>embed via <a href="https://github.com/timciep/letterboxd-diary-embed" target="_blank" rel="noopener">Tim Cieplowski</a></span>
+            <a href="https://letterboxd.com/awesomest1616/" target="_blank" rel="noopener">Open on Letterboxd ↗</a>
+          </div>
+        </div>
+        <script>
+          fetch('https://lb-embed-content.bokonon.dev?username=awesomest1616')
+            .then(r => r.text())
+            .then(html => {
+              const el = document.getElementById('letterboxd-embed-wrapper-tc');
+              el.style.cssText = '';
+              el.innerHTML = html;
+            })
+            .catch(() => {
+              document.getElementById('letterboxd-embed-wrapper-tc').innerHTML =
+                '<p style="padding:1.5rem;color:var(--muted);font-family:var(--mono);font-size:0.85rem;">couldn\'t load diary — <a href="https://letterboxd.com/awesomest1616/" target="_blank" rel="noopener" style="color:#00d145">open on letterboxd ↗</a></p>';
+            });
+        </script>
+      </div>
+
     </section>
 
   </main>
 
   <footer class="foot">
-    <span>Not indexed. Not optimized. Just me.</span>
-    <a href="index.html">← back to the work</a>
+    <span>⚠️ you made it to the bottom. congratulations i guess.</span>
+    <a href="index.html">← back to the résumé</a>
   </footer>
 
 </body>
