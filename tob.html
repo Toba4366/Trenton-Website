@@ -16,8 +16,8 @@
       --white:   #e8edf8;
       --muted:   #6877a0;
       --line:    rgba(232,237,248,0.07);
-      --coral:   #f25c54;
-      --gold:    #fdb515;
+      --coral:   #818cf8;
+      --gold:    #94a3b8;
       --green:   #00d145;
       --comic:   "Comic Sans MS", "Comic Sans", cursive;
       --pad:     clamp(1.25rem, 5vw, 3.5rem);
@@ -44,7 +44,7 @@
 
     /* ── WARNING BANNER ── */
     .warning-banner {
-      background: var(--coral); color: #fff;
+      background: linear-gradient(90deg, #1a1040, #0f172a, #1a1040); color: #a5b4fc;
       font-family: var(--comic); font-size: 0.8rem; font-weight: 700;
       text-align: center; padding: 0.65rem var(--pad);
       position: relative; z-index: 20;
@@ -153,15 +153,15 @@
     .card-platform { font-family: var(--comic); font-size: 0.72rem; color: var(--muted); }
     .card-name { font-family: var(--comic); font-size: 1.35rem; font-weight: 700; color: var(--white); }
     .card-desc { font-size: 0.88rem; color: rgba(232,237,248,0.55); line-height: 1.55; flex: 1; }
-    .card-link { margin-top: 0.5rem; font-size: 0.85rem; font-weight: 700; color: #ff8232; }
+    .card-link { margin-top: 0.5rem; font-size: 0.85rem; font-weight: 700; color: var(--blue); }
 
     /* ── FILM SECTION ── */
 
     /* Rating disclaimer — big, centered, rotated */
     .rating-disclaimer {
       max-width: 680px; margin: 0 auto 3.5rem;
-      background: linear-gradient(135deg, rgba(242,92,84,0.12), rgba(74,140,255,0.06));
-      border: 2px solid rgba(242,92,84,0.35);
+      background: linear-gradient(135deg, rgba(129,140,248,0.12), rgba(74,140,255,0.06));
+      border: 2px solid rgba(129,140,248,0.35);
       border-radius: var(--rad); padding: 2rem 2.25rem;
       text-align: center; transform: rotate(-1.5deg);
     }
@@ -204,7 +204,7 @@
     .zine-article p:last-child { margin-bottom: 0; }
     .zine-article strong { color: var(--white); font-weight: 700; }
     .zine-article mark {
-      background: rgba(253,181,21,0.2); color: var(--gold);
+      background: rgba(125,211,252,0.12); color: #7dd3fc;
       padding: 0 0.2em; border-radius: 3px;
     }
     .pull-quote {
