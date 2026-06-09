@@ -291,6 +291,41 @@
     .lb-footer a { color: var(--green); text-decoration: none; }
     .lb-footer a:hover { text-decoration: underline; }
 
+    /* ── MUSIC ── */
+    .sc-intro {
+      max-width: 560px;
+      margin-bottom: 2rem;
+      transform: rotate(-1.2deg);
+    }
+    .sc-intro p {
+      color: rgba(232,237,248,0.75);
+      line-height: 1.9;
+      font-size: 1rem;
+    }
+    .sc-lick {
+      display: block;
+      font-style: italic; font-size: 1.1rem;
+      color: var(--white);
+      border-left: 3px solid var(--coral);
+      padding: 0.75rem 1.25rem;
+      margin: 1.5rem 0 2rem 1rem;
+      transform: rotate(1.5deg);
+    }
+    .sc-embed-wrap {
+      border-radius: var(--rad); overflow: hidden;
+      border: 1px solid var(--line);
+      box-shadow: 0 12px 40px -10px rgba(0,0,0,0.6);
+      transform: rotate(-0.5deg);
+    }
+    .sc-credit {
+      margin-top: 0.6rem; font-size: 0.72rem;
+      color: var(--muted); overflow: hidden;
+      white-space: nowrap; text-overflow: ellipsis;
+      font-family: var(--comic);
+    }
+    .sc-credit a { color: var(--muted); text-decoration: none; }
+    .sc-credit a:hover { color: var(--white); text-decoration: underline; }
+
     /* ── FOOTER ── */
     .foot {
       position: relative; z-index: 1;
@@ -532,6 +567,31 @@
         </script>
       </div>
 
+    </div>
+
+    <!-- 🎵 MUSIC -->
+    <div class="block">
+      <span class="zine-label" style="transform: rotate(1.5deg); display:inline-block; margin-bottom: 2rem;">🎵 music</span>
+
+      <div class="sc-intro">
+        <p>
+          my ex dissed me via TikTok and Instagram.<br/>
+          and while i truly am not a rapper —
+        </p>
+        <span class="sc-lick">"who am i, if i don't get my lick back?"</span>
+        <p style="color:var(--muted); font-size:0.85rem; margin-top:-0.5rem;">
+          i present: <em style="color:var(--white);">Back In My Bag (to she who will not be named).</em>
+        </p>
+      </div>
+
+      <div class="sc-embed-wrap">
+        <iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay; encrypted-media"
+          src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2335876517&color=%234a8cff&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
+      </div>
+      <div class="sc-credit">
+        <a href="https://soundcloud.com/trenton-obannon-603520322" target="_blank" rel="noopener">T_Rocious.Beatz</a>
+        · <a href="https://soundcloud.com/trenton-obannon-603520322/back-in-my-bag-to-she-who-1" target="_blank" rel="noopener">Back In My Bag - (to she who will not be named) [fixed vocals]</a>
+      </div>
     </div>
 
   </main>
